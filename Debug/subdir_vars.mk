@@ -19,6 +19,7 @@ C_SRCS += \
 ../APU.c \
 ../InitAIC23.c \
 ../OneToOneI2CDriver.c \
+../Player.c \
 ../RFFT_f32_sincostable.c \
 ../io.c \
 ../lcd.c \
@@ -29,6 +30,7 @@ C_DEPS += \
 ./APU.d \
 ./InitAIC23.d \
 ./OneToOneI2CDriver.d \
+./Player.d \
 ./RFFT_f32_sincostable.d \
 ./io.d \
 ./lcd.d \
@@ -39,6 +41,7 @@ OBJS += \
 ./APU.obj \
 ./InitAIC23.obj \
 ./OneToOneI2CDriver.obj \
+./Player.obj \
 ./RFFT_f32.obj \
 ./RFFT_f32_mag_TMU0.obj \
 ./RFFT_f32_phase_TMU0.obj \
@@ -59,6 +62,7 @@ OBJS__QUOTED += \
 "APU.obj" \
 "InitAIC23.obj" \
 "OneToOneI2CDriver.obj" \
+"Player.obj" \
 "RFFT_f32.obj" \
 "RFFT_f32_mag_TMU0.obj" \
 "RFFT_f32_phase_TMU0.obj" \
@@ -73,6 +77,7 @@ C_DEPS__QUOTED += \
 "APU.d" \
 "InitAIC23.d" \
 "OneToOneI2CDriver.d" \
+"Player.d" \
 "RFFT_f32_sincostable.d" \
 "io.d" \
 "lcd.d" \
@@ -89,6 +94,7 @@ C_SRCS__QUOTED += \
 "../APU.c" \
 "../InitAIC23.c" \
 "../OneToOneI2CDriver.c" \
+"../Player.c" \
 "../RFFT_f32_sincostable.c" \
 "../io.c" \
 "../lcd.c" \

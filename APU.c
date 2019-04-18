@@ -1,47 +1,8 @@
 #include <F28x_Project.h>
-#include <math.h>
-#include <stdbool.h>
-#include "adc.h"
-#include "cputimer.h"
-#include "interrupt.h"
-#include "lcd.h"
-#include "InitAIC23.h"
-#include "AIC23.h"
-
-interrupt void TIMER1_INT();
-interrupt void mcBspRx();
-
-#define samplesPerSecond 44100
-#define cyclesPerSecond 1789772
-#define cyclesPerSample (float)cyclesPerSecond / (float)samplesPerSecond
-volatile float cyclesToProcess = 0;
-int32 sample;
-
-struct Envelope {
-    int16 volume;
-    bool loop;
-    bool constantVolume;
-    bool startFlag;
-    int16 dividerPeriod;
-    int16 dividerCounter;
-    int16 decay;
-    int16 output;
-};
-
-struct LinearCounter {
-    int16 counter;
-    int16 counterReloadVal;
-    bool reloadFlag;
-    bool reloadHold;
-};
+#include "APU.h"
 
 Uint16 lengthTable[] = {10, 254, 20,  2, 40,  4, 80,  6, 160,  8, 60, 10, 14, 12, 26, 14,
                         12, 16, 24, 18, 48, 20, 96, 22, 192, 24, 72, 26, 16, 28, 32, 30};
-
-struct LengthCounter {
-    int16 counter;
-    bool halt;
-};
 
 bool pulseSteps[4][8] = {
     {false, true, false, false, false, false, false, false},
@@ -50,64 +11,14 @@ bool pulseSteps[4][8] = {
     {true, false, false, true, true, true, true, true}
 };
 
-struct Pulse {
-    struct Envelope envelope;
-    struct LengthCounter lengthCounter;
-    int16 timer;
-    int16 timerPeriod;
-    int16 duty;
-    int16 currentStep;
-    bool oddPulse;
-    int16 output;
-    int16 sweepTarget;
-    bool sweepEnabled;
-    bool sweepNegate;
-    bool sweepNegateMode;
-    bool sweepReload;
-    int16 sweepShift;
-    int16 sweepCounter;
-    int16 sweepPeriod;
-    bool sweepMute;
-    bool enabled;
-};
 
 Uint16 triangleSteps[] = {
     15, 14, 13, 12, 11, 10, 9, 8, 7, 6, 5,  4,  3,  2,  1,  0,
     0,  1,  2,  3,  4,  5,  6, 7, 8, 9, 10, 11, 12, 13, 14, 15
 };
 
-struct Triangle {
-    int16 timerPeriod;
-    int16 timer;
-    struct LengthCounter lengthCounter;
-    struct LinearCounter linearCounter;
-    int16 currentStep;
-    int16 output;
-    bool enabled;
-};
 
 Uint16 noisePeriodTableNtsc[] = {4, 8, 16, 32, 64, 96, 128, 160, 202, 254, 380, 508, 762, 1016, 2034, 4068};
-
-struct Noise {
-    int16 timerPeriod;
-    int16 timer;
-    struct LengthCounter lengthCounter;
-    bool mode;
-    Uint16 reg;
-    struct Envelope envelope;
-    int16 output;
-    bool enabled;
-};
-
-struct Apu {
-    struct Pulse pulse1, pulse2;
-    struct Triangle triangle;
-    struct Noise noise;
-    bool frameMode;
-    Uint16 frameCounter;
-    float remainingCycles;
-    int32 output;
-};
 
 void setLengthCounter(struct LengthCounter *counter, bool enabled, int16 length) {
     if(enabled) {
@@ -275,7 +186,8 @@ void clockPulse(struct Pulse *pulse, int16 clocks) {
     if(pulse->lengthCounter.counter == 0
             || pulse->timer < 16
             || !pulseSteps[pulse->duty][pulse->currentStep]
-            || pulse->sweepMute) {
+            || pulse->sweepMute
+            || !pulse->enabled) {
         pulse->output = 0;
     }
     else {
@@ -285,7 +197,9 @@ void clockPulse(struct Pulse *pulse, int16 clocks) {
 
 void clockTriangle(struct Triangle *triangle, int16 clocks) {
     // triangle wave
-    if (triangle->linearCounter.counter == 0 || triangle->lengthCounter.counter == 0) {
+    if (triangle->linearCounter.counter == 0
+            || triangle->lengthCounter.counter == 0
+            || !triangle->enabled) {
         triangle->output = 0;
     }
     else {
@@ -325,7 +239,9 @@ void clockNoise(struct Noise *noise, int16 clocks) {
     }
 
     // output
-    if(noise->reg & 1 == 1 || noise->lengthCounter.counter == 0) {
+    if(noise->reg & 1 == 1
+            || noise->lengthCounter.counter == 0
+            || !noise->enabled) {
         noise->output = 0;
     }
     else {
@@ -603,16 +519,26 @@ void initApu(struct Apu *apu) {
     // TODO! WHAT SHOULD THIS BE?
     // AT MINIMUM: pulse1 sweep mode, pulse2 sweep mode, noise reg
     // testing vals
-    apu->triangle.enabled = true;
+
+
+    //apu->triangle.enabled = true;
+    apu->pulse1.enabled = true;
+    //apu->pulse2.enabled = true;
+    //apu->noise.enabled = true;
+
+
     apu->triangle.timerPeriod = 256;
     apu->triangle.lengthCounter.counter = 192;
     apu->triangle.currentStep = 0;
     apu->triangle.lengthCounter.halt = false;
     apu->triangle.linearCounter.counter = 384;
+
     apu->noise.reg = 1;
-    apu->noise.timerPeriod = 4;
-    apu->noise.envelope.output = 15;
+    apu->noise.timerPeriod = 128;
+    apu->noise.envelope.constantVolume = true;
+    apu->noise.envelope.volume = 15;
     apu->noise.lengthCounter.counter = 192;
+
     apu->pulse1.envelope.output = 15;
     apu->pulse1.lengthCounter.counter = 192;
     apu->pulse1.sweepEnabled = true;
@@ -628,51 +554,4 @@ void initApu(struct Apu *apu) {
     apu->pulse2.envelope.constantVolume = false;
     apu->pulse2.sweepNegate = true;
     apu->pulse2.sweepShift = 0;
-}
-
-// TO BE MOVED TO OTHER FILE:
-int main(void) {
-
-    // inits
-    InitSysCtrl();
-    InitBigBangedCodecSPI();
-    InitAIC23(SR48);
-    InitMcBSPb();
-    InitCpuTimers();
-    ConfigCpuTimer(&CpuTimer1, 200, 1000000.0f/samplesPerSecond);
-    Interrupt_initModule();
-    Interrupt_enable(INT_TIMER1);
-    Interrupt_register(INT_TIMER1, &TIMER1_INT);
-    Interrupt_enable(INT_MCBSPB_RX);
-    Interrupt_register(INT_MCBSPB_RX, &mcBspRx);
-    Interrupt_enableMaster();
-    CPUTimer_startTimer(CPUTIMER1_BASE); //test
-
-    // Init APU (have function to set up values!!)
-    struct Apu apu = {};
-    initApu(&apu);
-
-    while (1) {
-        if(cyclesToProcess > 0) {
-            sample = processCycles(&apu, cyclesToProcess);
-            cyclesToProcess = 0;
-        }
-    }
-
-}
-
-interrupt void TIMER1_INT() {
-    // start processing next sample
-    cyclesToProcess += cyclesPerSample;
-    Interrupt_clearACKGroup(INTERRUPT_CPU_INT1);
-}
-
-interrupt void mcBspRx() {
-    // dummy read
-    Uint16 lo = McbspbRegs.DRR1.all;
-    Uint16 hi = McbspbRegs.DRR2.all;
-    // output the current sample
-    McbspbRegs.DXR1.all = sample & 0xFFFF;
-    McbspbRegs.DXR2.all = (sample >> 16) & 0xFFFF;
-    Interrupt_clearACKGroup(INTERRUPT_ACK_GROUP6);
 }

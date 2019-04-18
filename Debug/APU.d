@@ -58,25 +58,7 @@ APU.obj: C:/ti/controlSUITE/device_support/F2837xD/v210/F2837xD_common/include/F
 APU.obj: C:/ti/controlSUITE/device_support/F2837xD/v210/F2837xD_common/include/F2837xD_SysCtrl_defines.h
 APU.obj: C:/ti/controlSUITE/device_support/F2837xD/v210/F2837xD_common/include/F2837xD_Upp_defines.h
 APU.obj: C:/ti/controlSUITE/device_support/F2837xD/v210/F2837xD_common/include/F2837xD_defaultisr.h
-APU.obj: C:/ti/ccsv8/tools/compiler/ti-cgt-c2000_18.1.4.LTS/include/math.h
-APU.obj: C:/ti/ccsv8/tools/compiler/ti-cgt-c2000_18.1.4.LTS/include/_defs.h
-APU.obj: C:/Users/Stasiu\ Chyczewski/workspace_v8/Lab5/ADC_TIMER_Driverlib/driverlib/adc.h
-APU.obj: C:/Users/Stasiu\ Chyczewski/workspace_v8/Lab5/ADC_TIMER_Driverlib/driverlib/inc/hw_adc.h
-APU.obj: C:/Users/Stasiu\ Chyczewski/workspace_v8/Lab5/ADC_TIMER_Driverlib/driverlib/inc/hw_sysctl.h
-APU.obj: C:/Users/Stasiu\ Chyczewski/workspace_v8/Lab5/ADC_TIMER_Driverlib/driverlib/inc/hw_memmap.h
-APU.obj: C:/Users/Stasiu\ Chyczewski/workspace_v8/Lab5/ADC_TIMER_Driverlib/driverlib/inc/hw_types.h
-APU.obj: C:/Users/Stasiu\ Chyczewski/workspace_v8/Lab5/ADC_TIMER_Driverlib/driverlib/cpu.h
-APU.obj: C:/Users/Stasiu\ Chyczewski/workspace_v8/Lab5/ADC_TIMER_Driverlib/driverlib/debug.h
-APU.obj: C:/Users/Stasiu\ Chyczewski/workspace_v8/Lab5/ADC_TIMER_Driverlib/driverlib/cputimer.h
-APU.obj: C:/Users/Stasiu\ Chyczewski/workspace_v8/Lab5/ADC_TIMER_Driverlib/driverlib/inc/hw_cputimer.h
-APU.obj: C:/Users/Stasiu\ Chyczewski/workspace_v8/Lab5/ADC_TIMER_Driverlib/driverlib/sysctl.h
-APU.obj: C:/Users/Stasiu\ Chyczewski/workspace_v8/Lab5/ADC_TIMER_Driverlib/driverlib/inc/hw_nmi.h
-APU.obj: C:/Users/Stasiu\ Chyczewski/workspace_v8/Lab5/ADC_TIMER_Driverlib/driverlib/interrupt.h
-APU.obj: C:/Users/Stasiu\ Chyczewski/workspace_v8/Lab5/ADC_TIMER_Driverlib/driverlib/inc/hw_ints.h
-APU.obj: C:/Users/Stasiu\ Chyczewski/workspace_v8/Lab5/ADC_TIMER_Driverlib/driverlib/inc/hw_pie.h
-APU.obj: ../lcd.h
-APU.obj: ../InitAIC23.h
-APU.obj: ../AIC23.h
+APU.obj: ../APU.h
 
 ../APU.c: 
 C:/ti/controlSUITE/device_support/F2837xD/v210/F2837xD_common/include/F28x_Project.h: 
@@ -136,22 +118,4 @@ C:/ti/controlSUITE/device_support/F2837xD/v210/F2837xD_common/include/F2837xD_Dm
 C:/ti/controlSUITE/device_support/F2837xD/v210/F2837xD_common/include/F2837xD_SysCtrl_defines.h: 
 C:/ti/controlSUITE/device_support/F2837xD/v210/F2837xD_common/include/F2837xD_Upp_defines.h: 
 C:/ti/controlSUITE/device_support/F2837xD/v210/F2837xD_common/include/F2837xD_defaultisr.h: 
-C:/ti/ccsv8/tools/compiler/ti-cgt-c2000_18.1.4.LTS/include/math.h: 
-C:/ti/ccsv8/tools/compiler/ti-cgt-c2000_18.1.4.LTS/include/_defs.h: 
-C:/Users/Stasiu\ Chyczewski/workspace_v8/Lab5/ADC_TIMER_Driverlib/driverlib/adc.h: 
-C:/Users/Stasiu\ Chyczewski/workspace_v8/Lab5/ADC_TIMER_Driverlib/driverlib/inc/hw_adc.h: 
-C:/Users/Stasiu\ Chyczewski/workspace_v8/Lab5/ADC_TIMER_Driverlib/driverlib/inc/hw_sysctl.h: 
-C:/Users/Stasiu\ Chyczewski/workspace_v8/Lab5/ADC_TIMER_Driverlib/driverlib/inc/hw_memmap.h: 
-C:/Users/Stasiu\ Chyczewski/workspace_v8/Lab5/ADC_TIMER_Driverlib/driverlib/inc/hw_types.h: 
-C:/Users/Stasiu\ Chyczewski/workspace_v8/Lab5/ADC_TIMER_Driverlib/driverlib/cpu.h: 
-C:/Users/Stasiu\ Chyczewski/workspace_v8/Lab5/ADC_TIMER_Driverlib/driverlib/debug.h: 
-C:/Users/Stasiu\ Chyczewski/workspace_v8/Lab5/ADC_TIMER_Driverlib/driverlib/cputimer.h: 
-C:/Users/Stasiu\ Chyczewski/workspace_v8/Lab5/ADC_TIMER_Driverlib/driverlib/inc/hw_cputimer.h: 
-C:/Users/Stasiu\ Chyczewski/workspace_v8/Lab5/ADC_TIMER_Driverlib/driverlib/sysctl.h: 
-C:/Users/Stasiu\ Chyczewski/workspace_v8/Lab5/ADC_TIMER_Driverlib/driverlib/inc/hw_nmi.h: 
-C:/Users/Stasiu\ Chyczewski/workspace_v8/Lab5/ADC_TIMER_Driverlib/driverlib/interrupt.h: 
-C:/Users/Stasiu\ Chyczewski/workspace_v8/Lab5/ADC_TIMER_Driverlib/driverlib/inc/hw_ints.h: 
-C:/Users/Stasiu\ Chyczewski/workspace_v8/Lab5/ADC_TIMER_Driverlib/driverlib/inc/hw_pie.h: 
-../lcd.h: 
-../InitAIC23.h: 
-../AIC23.h: 
+../APU.h: 
