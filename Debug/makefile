@@ -51,7 +51,7 @@ ORDERED_OBJS += \
 "./Common/F2837xD_struct.obj" \
 "./Common/F2837xD_usDelay.obj" \
 "./Header/F2837xD_GlobalVariableDefs.obj" \
-"../2837x_RAM_lnk_cpu1.cmd" \
+"../2837x_FLASH_lnk_cpu1.cmd" \
 "../ADC_TIMER_Driverlib/driverlib/ccs/Debug/driverlib.lib" \
 "../ADC_TIMER_Driverlib/driverlib/ccs/Release/driverlib.lib" \
 "../Header/F2837xD_Headers_BIOS_cpu1.cmd" \
@@ -193,7 +193,7 @@ all: $(OBJS) $(CMD_SRCS) $(LIB_SRCS) $(GEN_CMDS)
 Lab5.out: $(OBJS) $(CMD_SRCS) $(LIB_SRCS) $(GEN_CMDS)
 	@echo 'Building target: "$@"'
 	@echo 'Invoking: C2000 Linker'
-	"C:/ti/ccsv8/tools/compiler/ti-cgt-c2000_18.1.4.LTS/bin/cl2000" -v28 -ml -mt --cla_support=cla1 --float_support=fpu32 --tmu_support=tmu0 --vcu_support=vcu2 --fp_mode=relaxed --define=CPU1 --define=_LAUNCHXL_F28379D -g --c99 --diag_warning=225 --diag_wrap=off --display_error_number -z -m"Lab5.map" --stack_size=0x200 --warn_sections -i"C:/ti/ccsv8/tools/compiler/ti-cgt-c2000_18.1.4.LTS/lib" -i"C:/ti/ccsv8/tools/compiler/ti-cgt-c2000_18.1.4.LTS/include" --reread_libs --diag_wrap=off --display_error_number --xml_link_info="Lab5_linkInfo.xml" --rom_model -o "Lab5.out" $(ORDERED_OBJS)
+	"C:/ti/ccsv8/tools/compiler/ti-cgt-c2000_18.1.4.LTS/bin/cl2000" -v28 -ml -mt --cla_support=cla1 --float_support=fpu32 --tmu_support=tmu0 --vcu_support=vcu2 --fp_mode=relaxed --advice:performance=all --define=CPU1 --define=_FLASH --define=_LAUNCHXL_F28379D -g --c99 --diag_warning=225 --diag_wrap=off --display_error_number -z -m"Lab5.map" --stack_size=0x200 --warn_sections -i"C:/ti/ccsv8/tools/compiler/ti-cgt-c2000_18.1.4.LTS/lib" -i"C:/ti/ccsv8/tools/compiler/ti-cgt-c2000_18.1.4.LTS/include" --reread_libs --diag_wrap=off --display_error_number --xml_link_info="Lab5_linkInfo.xml" --rom_model -o "Lab5.out" $(ORDERED_OBJS)
 	@echo 'Finished building target: "$@"'
 	@echo ' '
 

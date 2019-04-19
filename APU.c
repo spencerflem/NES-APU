@@ -191,7 +191,7 @@ void clockPulse(struct Pulse *pulse, int16 clocks) {
 
     // output
     if(pulse->lengthCounter.counter == 0
-            || pulse->timer < 16
+            || pulse->timerPeriod < 16
             || !pulseSteps[pulse->duty][pulse->currentStep]
             || pulse->sweepMute
             || !pulse->enabled) {
@@ -258,7 +258,7 @@ void clockNoise(struct Noise *noise, int16 clocks) {
 
 int32 mixSample(struct Apu *apu) {
     float output = 0.00752 * (apu->pulse1.output + apu->pulse2.output) + 0.00851 * apu->triangle.output + 0.00494 * apu->noise.output;
-    return output * 0x5FFFFFFF; //was 7
+    return ((output-0.5)) * 0xFFFFFFFF;
 }
 
 void clockApu(struct Apu *apu, int16 clocks) {
@@ -533,7 +533,7 @@ void writeRegister(struct Apu *apu, int16 reg, int16 data) {
 }
 
 void initApu(struct Apu *apu) {
-    // TODO!
+    *apu = EmptyApu;
     apu->pulse2.sweepNegateMode = true;
     apu->noise.reg = 1;
 }

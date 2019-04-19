@@ -79,6 +79,8 @@ struct Apu {
     int32 output;
 };
 
+static const struct Apu EmptyApu;
+
 int32 processCycles(struct Apu *apu, float cycles);
 void setPulse1EnvelopeParameters(struct Apu *apu, bool loop, bool useConstantVolume, int16 periodAndVolume);
 void setPulse2EnvelopeParameters(struct Apu *apu, bool loop, bool useConstantVolume, int16 periodAndVolume);

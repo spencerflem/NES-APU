@@ -74,6 +74,9 @@ Player.obj: ../lcd.h
 Player.obj: ../InitAIC23.h
 Player.obj: ../AIC23.h
 Player.obj: ../APU.h
+Player.obj: ../secret.h
+Player.obj: ../intro.h
+Player.obj: ../io.h
 
 ../Player.c: 
 C:/ti/controlSUITE/device_support/F2837xD/v210/F2837xD_common/include/F28x_Project.h: 
@@ -149,3 +152,6 @@ C:/Users/Stasiu\ Chyczewski/workspace_v8/Lab5/ADC_TIMER_Driverlib/driverlib/inc/
 ../InitAIC23.h: 
 ../AIC23.h: 
 ../APU.h: 
+../secret.h: 
+../intro.h: 
+../io.h: 

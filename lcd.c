@@ -1,7 +1,7 @@
 #include <F28x_Project.h>
 #include "OneToOneI2CDriver.h"
 
-const Uint16 initCommands[] = {0x33, 0x32, 0x28, 0x0F, 0x01};
+const Uint16 initCommands[] = {0x33, 0x32, 0x28, 0x0C, 0x01};
 const Uint16 shiftCommand[] = {0xC0};
 const Uint16 clearCommand[] = {0x01};
 
