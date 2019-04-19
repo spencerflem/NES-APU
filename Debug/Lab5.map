@@ -1,10 +1,10 @@
 ******************************************************************************
              TMS320C2000 Linker PC v18.1.4                     
 ******************************************************************************
->> Linked Thu Apr 18 23:46:51 2019
+>> Linked Thu Apr 18 23:49:37 2019
 
 OUTPUT FILE NAME:   <Lab5.out>
-ENTRY POINT SYMBOL: "_c_int00"  address: 00008f80
+ENTRY POINT SYMBOL: "_c_int00"  address: 0000b72a
 
 
 MEMORY CONFIGURATION
@@ -15,11 +15,11 @@ PAGE 0:
   BEGIN                 00000000   00000002  00000002  00000000  RWIX
   RAMM0                 00000122   000002de  000002de  00000000  RWIX
   RAMLS0                00008000   00000800  000007f6  0000000a  RWIX
-  RAMLS1                00008800   00000800  000007f8  00000008  RWIX
-  RAMLS2                00009000   00000800  000001d5  0000062b  RWIX
+  RAMLS1                00008800   00000800  00000774  0000008c  RWIX
+  RAMLS2                00009000   00000800  00000187  00000679  RWIX
   RAMLS3                00009800   00000800  00000000  00000800  RWIX
   RAMLS4                0000a000   00000800  00000000  00000800  RWIX
-  RAMD0                 0000b000   00000800  000007fc  00000004  RWIX
+  RAMD0                 0000b000   00000800  000007ff  00000001  RWIX
   RESET                 003fffc0   00000002  00000000  00000002  RWIX
 
 PAGE 1:
@@ -619,11 +619,10 @@ CpuSysRegsFile
                   0005d300    00000082     F2837xD_GlobalVariableDefs.obj (CpuSysRegsFile)
 
 .text.1    0    000002f0    00000110     
-                  000002f0    000000e1     Player.obj (.text)
-                  000003d1    00000029     rts2800_fpu32.lib : exit.c.obj (.text)
-                  000003fa    00000003     F2837xD_DBGIER.obj (.text)
-                  000003fd    00000002     rts2800_fpu32.lib : pre_init.c.obj (.text)
-                  000003ff    00000001                       : startup.c.obj (.text)
+                  000002f0    000000c9     Player.obj (.text)
+                  000003b9    00000042     AIC23.obj (.text)
+                  000003fb    00000003     F2837xD_DBGIER.obj (.text)
+                  000003fe    00000002     rts2800_fpu32.lib : pre_init.c.obj (.text)
 
 .text.2    0    00008000    000007f6     
                   00008000    00000585     F2837xD_DefaultISR.obj (.text:retain)
@@ -631,24 +630,24 @@ CpuSysRegsFile
                   000087c9    00000024     rts2800_fpu32.lib : cpy_tbl.c.obj (.text)
                   000087ed    00000009                       : _lock.c.obj (.text)
 
-.text.3    0    00008800    000007f8     
+.text.3    0    00008800    00000774     
                   00008800    0000033b     F2837xD_SysCtrl.obj (.text)
                   00008b3b    00000211     InitAIC23.obj (.text)
                   00008d4c    000001b8     F2837xD_Mcbsp.obj (.text)
-                  00008f04    0000007c     F2837xD_CpuTimers.obj (.text)
-                  00008f80    00000056     rts2800_fpu32.lib : boot28.asm.obj (.text)
-                  00008fd6    00000022                       : i_div28.asm.obj (.text)
+                  00008f04    00000022     rts2800_fpu32.lib : i_div28.asm.obj (.text)
+                  00008f26    0000001d                       : memcpy.c.obj (.text)
+                  00008f43    00000019                       : args_main.c.obj (.text)
+                  00008f5c    00000018                       : ll_aox28.asm.obj (.text)
 
-.text.4    0    00009000    000001d5     
+.text.4    0    00009000    00000187     
                   00009000    00000187     interrupt.obj (.text)
-                  00009187    0000001d     rts2800_fpu32.lib : memcpy.c.obj (.text)
-                  000091a4    00000019                       : args_main.c.obj (.text)
-                  000091bd    00000018                       : ll_aox28.asm.obj (.text)
 
-.text.5    0    0000b000    000007fc     
+.text.5    0    0000b000    000007ff     
                   0000b000    0000072a     APU.obj (.text)
-                  0000b72a    00000090     Player.obj (.text:retain)
-                  0000b7ba    00000042     AIC23.obj (.text)
+                  0000b72a    00000056     rts2800_fpu32.lib : boot28.asm.obj (.text)
+                  0000b780    00000055     Player.obj (.text:retain)
+                  0000b7d5    00000029     rts2800_fpu32.lib : exit.c.obj (.text)
+                  0000b7fe    00000001                       : startup.c.obj (.text)
 
 MODULE SUMMARY
 
@@ -656,11 +655,11 @@ MODULE SUMMARY
        ------                           ----   ----------------   ------------------
     .\
        APU.obj                          1834   156                128               
-       Player.obj                       369    128                233               
+       Player.obj                       286    128                233               
        InitAIC23.obj                    529    0                  0                 
        AIC23.obj                        66     0                  0                 
     +--+--------------------------------+------+------------------+--------------------+
-       Total:                           2798   284                361               
+       Total:                           2715   284                361               
                                                                                     
     .\ADC_TIMER_Driverlib\driverlib\
        interrupt.obj                    391    0                  0                 
@@ -673,15 +672,15 @@ MODULE SUMMARY
        F2837xD_Gpio.obj                 580    0                  0                 
        F2837xD_Mcbsp.obj                440    0                  0                 
        F2837xD_struct.obj               0      144                120               
-       F2837xD_CpuTimers.obj            124    0                  24                
        F2837xD_Ipc_Driver.obj           0      0                  136               
+       F2837xD_CpuTimers.obj            0      0                  24                
        F2837xD_TempSensorConv.obj       0      0                  6                 
        F2837xD_sci_io.obj               0      4                  1                 
        F2837xD_usDelay.obj              4      0                  0                 
        F2837xD_DBGIER.obj               3      0                  0                 
        F2837xD_CodeStartBranch.obj      2      0                  0                 
     +--+--------------------------------+------+------------------+--------------------+
-       Total:                           3393   148                287               
+       Total:                           3269   148                287               
                                                                                     
     .\Header\
        F2837xD_GlobalVariableDefs.obj   0      0                  8309              
@@ -704,7 +703,7 @@ MODULE SUMMARY
                                                                                     
        Stack:                           0      0                  512               
     +--+--------------------------------+------+------------------+--------------------+
-       Grand Total:                     6869   456                9479              
+       Grand Total:                     6662   456                9479              
 
 
 GLOBAL DATA SYMBOLS: SORTED BY DATA PAGE
@@ -941,12 +940,12 @@ GLOBAL SYMBOLS: SORTED ALPHABETICALLY BY Name
 page  address   name                                                   
 ----  -------   ----                                                   
 abs   ffffffff  .text                                                  
-0     000003d1  C$$EXIT                                                
-0     00008fd6  I$$DIV                                                 
-0     00008fe7  I$$MOD                                                 
-0     000091bd  LL$$AND                                                
-0     000091c5  LL$$OR                                                 
-0     000091cd  LL$$XOR                                                
+0     0000b7d5  C$$EXIT                                                
+0     00008f04  I$$DIV                                                 
+0     00008f15  I$$MOD                                                 
+0     00008f5c  LL$$AND                                                
+0     00008f64  LL$$OR                                                 
+0     00008f6c  LL$$XOR                                                
 1     0000a9a2  _ADC                                                   
 0     000080be  _ADCA1_ISR                                             
 0     0000833e  _ADCA2_ISR                                             
@@ -997,7 +996,7 @@ abs   ffffffff  .text
 0     000083ca  _CLA1_8_ISR                                            
 0     00008550  _CLA_OVERFLOW_ISR                                      
 0     0000855a  _CLA_UNDERFLOW_ISR                                     
-0     0000b7f0  _CLKsampleratecontrol                                  
+0     000003ef  _CLKsampleratecontrol                                  
 1     00048000  _CanaRegs                                              
 1     0004a000  _CanbRegs                                              
 1     00001400  _Cla1Regs                                              
@@ -1011,7 +1010,6 @@ abs   ffffffff  .text
 1     00005d20  _Cmpss6Regs                                            
 1     00005d40  _Cmpss7Regs                                            
 1     00005d60  _Cmpss8Regs                                            
-0     00008f45  _ConfigCpuTimer                                        
 1     0005d300  _CpuSysRegs                                            
 1     0000aa10  _CpuTimer0                                             
 1     00000c00  _CpuTimer0Regs                                         
@@ -1027,7 +1025,7 @@ abs   ffffffff  .text
 0     00008276  _DMA_CH4_ISR                                           
 0     00008280  _DMA_CH5_ISR                                           
 0     0000828a  _DMA_CH6_ISR                                           
-0     0000b7e4  _DSPdigaudinterface                                    
+0     000003e3  _DSPdigaudinterface                                    
 1     00005c00  _DacaRegs                                              
 1     00005c10  _DacbRegs                                              
 1     00005c20  _DaccRegs                                              
@@ -1137,7 +1135,7 @@ abs   ffffffff  .text
 0     00008294  _I2CA_ISR                                              
 0     000082b2  _I2CB_FIFO_ISR                                         
 0     000082a8  _I2CB_ISR                                              
-0     0000b7e7  _I2Sdigaudinterface                                    
+0     000003e6  _I2Sdigaudinterface                                    
 1     00007300  _I2caRegs                                              
 1     00007340  _I2cbRegs                                              
 0     00008af1  _IDLE                                                  
@@ -1150,7 +1148,6 @@ abs   ffffffff  .text
 0     00008b3b  _InitAIC23                                             
 0     000089c8  _InitAuxPll                                            
 0     00008cb0  _InitBigBangedCodecSPI                                 
-0     00008f04  _InitCpuTimers                                         
 0     00008585  _InitGpio                                              
 0     00008c1c  _InitMcBSPb                                            
 0     00008d4c  _InitMcbspa                                            
@@ -1231,7 +1228,7 @@ abs   ffffffff  .text
 1     00005e80  _Sdfm2Regs                                             
 0     000088cd  _SeizeFlashPump                                        
 0     000088e6  _ServiceDog                                            
-0     000003fa  _SetDBGIER                                             
+0     000003fb  _SetDBGIER                                             
 0     00008d41  _SpiTransmit                                           
 1     00006100  _SpiaRegs                                              
 1     00006110  _SpibRegs                                              
@@ -1241,13 +1238,12 @@ abs   ffffffff  .text
 0     00008abb  _SysIntOsc2Sel                                         
 0     00008ac5  _SysXtalOscSel                                         
 0     000080fa  _TIMER0_ISR                                            
-0     0000b72a  _TIMER1_INT                                            
 0     00008000  _TIMER1_ISR                                            
 0     0000800a  _TIMER2_ISR                                            
 1     0000a9da  _TRIP_SEL                                              
 0     000084b0  _UPPA_ISR                                              
 0     000084ba  _USBA_ISR                                              
-0     0000b7ea  _USBsampleratecontrol                                  
+0     000003e9  _USBsampleratecontrol                                  
 0     000080a0  _USER10_ISR                                            
 0     000080aa  _USER11_ISR                                            
 0     000080b4  _USER12_ISR                                            
@@ -1285,18 +1281,18 @@ abs   ffffffff  ___c_args__
 abs   ffffffff  ___etext__                                             
 abs   ffffffff  ___pinit__                                             
 abs   ffffffff  ___text__                                              
-0     000091a4  __args_main                                            
+0     00008f43  __args_main                                            
 1     0000a8f6  __lock                                                 
 0     000087f5  __nop                                                  
 0     000087f1  __register_lock                                        
 0     000087ed  __register_unlock                                      
 1     00000400  __stack                                                
-0     000003ff  __system_post_cinit                                    
-0     000003fd  __system_pre_init                                      
+0     0000b7fe  __system_post_cinit                                    
+0     000003fe  __system_pre_init                                      
 1     0000a8f8  __unlock                                               
-0     0000b7de  _aaudpath                                              
-0     000003d1  _abort                                                 
-0     00008f80  _c_int00                                               
+0     000003dd  _aaudpath                                              
+0     0000b7d5  _abort                                                 
+0     0000b72a  _c_int00                                               
 0     0000b054  _calcSweepTarget                                       
 0     00008eee  _clkg_delay_loop                                       
 0     0000b2ff  _clockApu                                              
@@ -1312,12 +1308,12 @@ abs   ffffffff  ___text__
 1     0000a804  _cyclesToProcess                                       
 0     00008ed8  _delay_loop                                            
 1     0000a8e9  _deviceOpen                                            
-0     0000b7f6  _digact                                                
-0     0000b7e1  _digaudiopath                                          
+0     000003f5  _digact                                                
+0     000003e0  _digaudiopath                                          
 1     0000a800  _even                                                  
-0     000003d3  _exit                                                  
+0     0000b7d7  _exit                                                  
 1     0000a880  _file                                                  
-0     0000b7bd  _fullpowerup                                           
+0     000003bc  _fullpowerup                                           
 1     0003fc00  _g_asIPCCPU1toCPU2Buffers                              
 0     0003f800  _g_asIPCCPU2toCPU1Buffers                              
 1     0003fc84  _g_usGetReadIndexes                                    
@@ -1328,22 +1324,22 @@ abs   ffffffff  ___text__
 1     0000a802  _index                                                 
 0     0000b71c  _initApu                                               
 1     0000a940  _lengthTable                                           
-0     0000b7cf  _lhp_volctl                                            
-0     0000b7c3  _linput_volctl                                         
+0     000003ce  _lhp_volctl                                            
+0     000003c2  _linput_volctl                                         
 0     00000313  _main                                                  
-0     0000b765  _mcBspRx                                               
-0     00009187  _memcpy                                                
+0     0000b780  _mcBspRx                                               
+0     00008f26  _memcpy                                                
 0     0000b2be  _mixSample                                             
 1     0000a900  _noisePeriodTableNtsc                                  
-0     0000b7db  _nomicaaudpath                                         
-0     0000b7c0  _nomicpowerup                                          
+0     000003da  _nomicaaudpath                                         
+0     000003bf  _nomicpowerup                                          
 0     0000b025  _pickEnvelopeOutput                                    
 0     0000b31c  _processCycles                                         
 1     0000a960  _pulseSteps                                            
 0     0000b0f6  _quarterClock                                          
-0     0000b7f9  _reset                                                 
-0     0000b7d5  _rhp_volctl                                            
-0     0000b7c9  _rinput_volctl                                         
+0     000003f8  _reset                                                 
+0     000003d4  _rhp_volctl                                            
+0     000003c8  _rinput_volctl                                         
 1     0000a806  _sample                                                
 0     0000b5ef  _setEnableChannels                                     
 0     0000b622  _setFrameCounterMode                                   
@@ -1375,7 +1371,7 @@ abs   ffffffff  ___text__
 0     0000b51f  _setTriangleLinearCounterParamsAndLengthCounterHalt    
 0     0000b544  _setTrianglePeriod                                     
 0     0000b571  _setTrianglePeriodLo                                   
-0     0000b7ba  _softpowerdown                                         
+0     000003b9  _softpowerdown                                         
 1     0000a8ec  _tempSensor_scaleFactor                                
 1     0000a8ea  _tempSensor_tempOffset                                 
 1     0000a8ee  _tempSensor_tempSlope                                  
@@ -1398,12 +1394,24 @@ page  address   name
 0     00000122  cinit                                                  
 0     000002ec  _F28x_usDelay                                          
 0     00000313  _main                                                  
-0     000003d1  C$$EXIT                                                
-0     000003d1  _abort                                                 
-0     000003d3  _exit                                                  
-0     000003fa  _SetDBGIER                                             
-0     000003fd  __system_pre_init                                      
-0     000003ff  __system_post_cinit                                    
+0     000003b9  _softpowerdown                                         
+0     000003bc  _fullpowerup                                           
+0     000003bf  _nomicpowerup                                          
+0     000003c2  _linput_volctl                                         
+0     000003c8  _rinput_volctl                                         
+0     000003ce  _lhp_volctl                                            
+0     000003d4  _rhp_volctl                                            
+0     000003da  _nomicaaudpath                                         
+0     000003dd  _aaudpath                                              
+0     000003e0  _digaudiopath                                          
+0     000003e3  _DSPdigaudinterface                                    
+0     000003e6  _I2Sdigaudinterface                                    
+0     000003e9  _USBsampleratecontrol                                  
+0     000003ef  _CLKsampleratecontrol                                  
+0     000003f5  _digact                                                
+0     000003f8  _reset                                                 
+0     000003fb  _SetDBGIER                                             
+0     000003fe  __system_pre_init                                      
 0     00000ce0  _Cla1SoftIntRegs                                       
 0     00000d00  _EmuKey                                                
 0     00000d00  _PieVectTable                                          
@@ -1613,20 +1621,17 @@ page  address   name
 0     00008e90  _InitMcbspbGpio                                        
 0     00008ed8  _delay_loop                                            
 0     00008eee  _clkg_delay_loop                                       
-0     00008f04  _InitCpuTimers                                         
-0     00008f45  _ConfigCpuTimer                                        
-0     00008f80  _c_int00                                               
-0     00008fd6  I$$DIV                                                 
-0     00008fe7  I$$MOD                                                 
+0     00008f04  I$$DIV                                                 
+0     00008f15  I$$MOD                                                 
+0     00008f26  _memcpy                                                
+0     00008f43  __args_main                                            
+0     00008f5c  LL$$AND                                                
+0     00008f64  LL$$OR                                                 
+0     00008f6c  LL$$XOR                                                
 0     000090ab  _Interrupt_initModule                                  
 0     000090e8  _Interrupt_initVectorTable                             
 0     00009108  _Interrupt_enable                                      
 0     0000913c  _Interrupt_disable                                     
-0     00009187  _memcpy                                                
-0     000091a4  __args_main                                            
-0     000091bd  LL$$AND                                                
-0     000091c5  LL$$OR                                                 
-0     000091cd  LL$$XOR                                                
 0     0000b000  _setLengthCounter                                      
 0     0000b014  _clockLinearCounter                                    
 0     0000b025  _pickEnvelopeOutput                                    
@@ -1674,24 +1679,12 @@ page  address   name
 0     0000b622  _setFrameCounterMode                                   
 0     0000b62c  _writeRegister                                         
 0     0000b71c  _initApu                                               
-0     0000b72a  _TIMER1_INT                                            
-0     0000b765  _mcBspRx                                               
-0     0000b7ba  _softpowerdown                                         
-0     0000b7bd  _fullpowerup                                           
-0     0000b7c0  _nomicpowerup                                          
-0     0000b7c3  _linput_volctl                                         
-0     0000b7c9  _rinput_volctl                                         
-0     0000b7cf  _lhp_volctl                                            
-0     0000b7d5  _rhp_volctl                                            
-0     0000b7db  _nomicaaudpath                                         
-0     0000b7de  _aaudpath                                              
-0     0000b7e1  _digaudiopath                                          
-0     0000b7e4  _DSPdigaudinterface                                    
-0     0000b7e7  _I2Sdigaudinterface                                    
-0     0000b7ea  _USBsampleratecontrol                                  
-0     0000b7f0  _CLKsampleratecontrol                                  
-0     0000b7f6  _digact                                                
-0     0000b7f9  _reset                                                 
+0     0000b72a  _c_int00                                               
+0     0000b780  _mcBspRx                                               
+0     0000b7d5  C$$EXIT                                                
+0     0000b7d5  _abort                                                 
+0     0000b7d7  _exit                                                  
+0     0000b7fe  __system_post_cinit                                    
 0     0003f800  _g_asIPCCPU2toCPU1Buffers                              
 0     0003f880  _g_usGetWriteIndexes                                   
 0     0003f884  _g_usPutReadIndexes                                    
@@ -1841,4 +1834,4 @@ abs   ffffffff  binit
 abs   ffffffff  etext                                                  
 abs   ffffffff  pinit                                                  
 
-[447 symbols]
+[444 symbols]

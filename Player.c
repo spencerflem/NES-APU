@@ -71,12 +71,10 @@ int main(void) {
     Interrupt_register(INT_MCBSPB_RX, &mcBspRx);
     Interrupt_enableMaster();
 
-    // Init APU (have function to set up values!!)
     struct Apu apu = {};
     initApu(&apu);
 
     while (1) {
-        // Next Sample:
         if (cyclesToProcess > 0) {
             if (wait == 0) {
                 while (wait == 0) {
@@ -98,7 +96,7 @@ int main(void) {
                         wait = 735;
                     }
                     else if (command == 0x66) {
-                        //wait forever - END OF FILE;
+                        // END OF FILE;
                         wait=1;
                         index--;
                     }

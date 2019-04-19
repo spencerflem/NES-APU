@@ -67,10 +67,6 @@ Player.obj: C:/Users/Stasiu\ Chyczewski/workspace_v8/Lab5/ADC_TIMER_Driverlib/dr
 Player.obj: C:/Users/Stasiu\ Chyczewski/workspace_v8/Lab5/ADC_TIMER_Driverlib/driverlib/inc/hw_types.h
 Player.obj: C:/Users/Stasiu\ Chyczewski/workspace_v8/Lab5/ADC_TIMER_Driverlib/driverlib/cpu.h
 Player.obj: C:/Users/Stasiu\ Chyczewski/workspace_v8/Lab5/ADC_TIMER_Driverlib/driverlib/debug.h
-Player.obj: C:/Users/Stasiu\ Chyczewski/workspace_v8/Lab5/ADC_TIMER_Driverlib/driverlib/cputimer.h
-Player.obj: C:/Users/Stasiu\ Chyczewski/workspace_v8/Lab5/ADC_TIMER_Driverlib/driverlib/inc/hw_cputimer.h
-Player.obj: C:/Users/Stasiu\ Chyczewski/workspace_v8/Lab5/ADC_TIMER_Driverlib/driverlib/sysctl.h
-Player.obj: C:/Users/Stasiu\ Chyczewski/workspace_v8/Lab5/ADC_TIMER_Driverlib/driverlib/inc/hw_nmi.h
 Player.obj: C:/Users/Stasiu\ Chyczewski/workspace_v8/Lab5/ADC_TIMER_Driverlib/driverlib/interrupt.h
 Player.obj: C:/Users/Stasiu\ Chyczewski/workspace_v8/Lab5/ADC_TIMER_Driverlib/driverlib/inc/hw_ints.h
 Player.obj: C:/Users/Stasiu\ Chyczewski/workspace_v8/Lab5/ADC_TIMER_Driverlib/driverlib/inc/hw_pie.h
@@ -146,10 +142,6 @@ C:/Users/Stasiu\ Chyczewski/workspace_v8/Lab5/ADC_TIMER_Driverlib/driverlib/inc/
 C:/Users/Stasiu\ Chyczewski/workspace_v8/Lab5/ADC_TIMER_Driverlib/driverlib/inc/hw_types.h: 
 C:/Users/Stasiu\ Chyczewski/workspace_v8/Lab5/ADC_TIMER_Driverlib/driverlib/cpu.h: 
 C:/Users/Stasiu\ Chyczewski/workspace_v8/Lab5/ADC_TIMER_Driverlib/driverlib/debug.h: 
-C:/Users/Stasiu\ Chyczewski/workspace_v8/Lab5/ADC_TIMER_Driverlib/driverlib/cputimer.h: 
-C:/Users/Stasiu\ Chyczewski/workspace_v8/Lab5/ADC_TIMER_Driverlib/driverlib/inc/hw_cputimer.h: 
-C:/Users/Stasiu\ Chyczewski/workspace_v8/Lab5/ADC_TIMER_Driverlib/driverlib/sysctl.h: 
-C:/Users/Stasiu\ Chyczewski/workspace_v8/Lab5/ADC_TIMER_Driverlib/driverlib/inc/hw_nmi.h: 
 C:/Users/Stasiu\ Chyczewski/workspace_v8/Lab5/ADC_TIMER_Driverlib/driverlib/interrupt.h: 
 C:/Users/Stasiu\ Chyczewski/workspace_v8/Lab5/ADC_TIMER_Driverlib/driverlib/inc/hw_ints.h: 
 C:/Users/Stasiu\ Chyczewski/workspace_v8/Lab5/ADC_TIMER_Driverlib/driverlib/inc/hw_pie.h: 
