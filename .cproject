@@ -84,7 +84,7 @@
 						</toolChain>
 					</folderInfo>
 					<sourceEntries>
-						<entry excluding="lab7.c|lab8c.c|lab8b.c|lab8a.c|RFFT_f32_twiddleFactors.asm|lab7quiz2.c|la7quiz.c|Lab7b.c|Lab7a.c|lab6d2.c|lab6d.c|lab6c.c|lab6a.c|lab6quiz.c|lab6b.c|Lab5b.c|Lab5a.c|quiz.c|InitAIC23_old.c|ADC_TIMER_Driverlib/examples|Mcbsp.c" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
+						<entry excluding="ADC_TIMER_Driverlib/examples" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
 					</sourceEntries>
 				</configuration>
 			</storageModule>

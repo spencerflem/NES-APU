@@ -1,7 +1,7 @@
 #ifndef APU_H_
 #define APU_H_
 
-#define samplesPerSecond 44100
+#define samplesPerSecond 46875 //44100
 #define cyclesPerSecond 1789772
 #define cyclesPerSample (float)cyclesPerSecond / (float)samplesPerSecond
 
@@ -35,7 +35,6 @@ struct Pulse {
     int16 timerPeriod;
     int16 duty;
     int16 currentStep;
-    bool oddPulse;
     int16 output;
     int16 sweepTarget;
     bool sweepEnabled;

@@ -39,6 +39,16 @@ void clockLinearCounter(struct LinearCounter *counter) {
     }
 }
 
+void pickEnvelopeOutput(struct Envelope *envelope) {
+    // choose sawtooth or constant
+    if (envelope->constantVolume) {
+        envelope->output = envelope->volume;
+    }
+    else {
+        envelope->output = envelope->decay;
+    }
+}
+
 void clockEnvelope(struct Envelope *envelope) {
     // create a sawtooth wave
     if (envelope->startFlag) {
@@ -60,13 +70,7 @@ void clockEnvelope(struct Envelope *envelope) {
             }
         }
     }
-    // choose sawtooth or constant
-    if (envelope->constantVolume) {
-        envelope->output = envelope->volume;
-    }
-    else {
-        envelope->output = envelope->decay;
-    }
+    pickEnvelopeOutput(envelope);
 }
 
 void calcSweepTarget(struct Pulse *pulse) {
@@ -85,6 +89,9 @@ void calcSweepTarget(struct Pulse *pulse) {
     // check mute
     if (pulse->sweepTarget > 0xFFF || pulse->timerPeriod < 16) {
         pulse->sweepMute = true;
+    }
+    else {
+        pulse->sweepMute = false;
     }
 }
 
@@ -176,7 +183,7 @@ void clockPulse(struct Pulse *pulse, int16 clocks) {
     if(pulse->timer - clocks > 0) {
         pulse->timer = pulse->timer - clocks;
     }
-    else {
+    else if (pulse->timerPeriod > 0){
         int16 steps = (clocks - pulse->timer)/pulse->timerPeriod + 1;
         pulse->timer = pulse->timerPeriod - (clocks - pulse->timer)%pulse->timerPeriod;
         pulse->currentStep = (pulse->currentStep + steps) & 0x07;
@@ -207,7 +214,7 @@ void clockTriangle(struct Triangle *triangle, int16 clocks) {
         if(triangle->timer - clocks > 0) {
             triangle->timer = triangle->timer - clocks;
         }
-        else {
+        else if (triangle->timerPeriod > 0) {
             int16 steps = (clocks - triangle->timer)/triangle->timerPeriod + 1;
             triangle->timer = triangle->timerPeriod - (clocks - triangle->timer)%triangle->timerPeriod;
             triangle->currentStep = (triangle->currentStep + steps) & 0x1F;
@@ -223,7 +230,7 @@ void clockNoise(struct Noise *noise, int16 clocks) {
     if(noise->timer - clocks > 0) {
         noise->timer = noise->timer - clocks;
     }
-    else {
+    else if (noise->timerPeriod > 0){
         int16 steps = (clocks - noise->timer)/noise->timerPeriod + 1;
         noise->timer = noise->timerPeriod - (clocks - noise->timer)%noise->timerPeriod;
         for (int16 i = 0; i < steps; i++) {
@@ -251,7 +258,7 @@ void clockNoise(struct Noise *noise, int16 clocks) {
 
 int32 mixSample(struct Apu *apu) {
     float output = 0.00752 * (apu->pulse1.output + apu->pulse2.output) + 0.00851 * apu->triangle.output + 0.00494 * apu->noise.output;
-    return output * 0x7FFFFFFF;
+    return output * 0x5FFFFFFF; //was 7
 }
 
 void clockApu(struct Apu *apu, int16 clocks) {
@@ -279,6 +286,7 @@ void setPulse1EnvelopeParameters(struct Apu *apu, bool loop, bool useConstantVol
     apu->pulse1.envelope.constantVolume = useConstantVolume;
     apu->pulse1.envelope.dividerPeriod = (periodAndVolume & 0xF) + 1;
     apu->pulse1.envelope.volume = (periodAndVolume & 0xF);
+    pickEnvelopeOutput(&apu->pulse1.envelope);
 }
 
 void setPulse2EnvelopeParameters(struct Apu *apu, bool loop, bool useConstantVolume, int16 periodAndVolume) {
@@ -286,6 +294,7 @@ void setPulse2EnvelopeParameters(struct Apu *apu, bool loop, bool useConstantVol
     apu->pulse2.envelope.constantVolume = useConstantVolume;
     apu->pulse2.envelope.dividerPeriod = (periodAndVolume & 0xF) + 1;
     apu->pulse2.envelope.volume = (periodAndVolume & 0xF);
+    pickEnvelopeOutput(&apu->pulse2.envelope);
 }
 
 void setNoiseEnvelopeParameters(struct Apu *apu, bool loop, bool useConstantVolume, int16 periodAndVolume) {
@@ -293,6 +302,7 @@ void setNoiseEnvelopeParameters(struct Apu *apu, bool loop, bool useConstantVolu
     apu->noise.envelope.constantVolume = useConstantVolume;
     apu->noise.envelope.dividerPeriod = (periodAndVolume & 0xF) + 1;
     apu->noise.envelope.volume = (periodAndVolume & 0xF);
+    pickEnvelopeOutput(&apu->noise.envelope);
 }
 
 void setPulse1SweepParameters(struct Apu *apu, bool enabled, int16 period, bool negate, int16 shift) {
@@ -331,6 +341,7 @@ void setPulse1Period(struct Apu *apu, int16 period) {
     apu->pulse1.timerPeriod = ((period*2) & 0xFFF);
     apu->pulse1.currentStep = 0;
     apu->pulse1.envelope.startFlag = true;
+    apu->pulse1.timer = apu->pulse1.timerPeriod;
     calcSweepTarget(&apu->pulse1);
 }
 
@@ -338,6 +349,7 @@ void setPulse2Period(struct Apu *apu, int16 period) {
     apu->pulse2.timerPeriod = ((period*2) & 0xFFF);
     apu->pulse2.currentStep = 0;
     apu->pulse2.envelope.startFlag = true;
+    apu->pulse2.timer = apu->pulse2.timerPeriod;
     calcSweepTarget(&apu->pulse2);
 }
 
@@ -352,30 +364,32 @@ void setPulse2Length(struct Apu *apu, int16 length) {
 }
 
 void setPulse1PeriodLo(struct Apu *apu, int16 periodLo) {
-    apu->pulse1.timerPeriod &= 0x1FF;
+    apu->pulse1.timerPeriod &= 0xE00;
     apu->pulse1.timerPeriod |= ((periodLo*2) & 0x1FF);
     calcSweepTarget(&apu->pulse1);
 }
 
 void setPulse2PeriodLo(struct Apu *apu, int16 periodLo) {
-    apu->pulse2.timerPeriod &= 0x1FF;
+    apu->pulse2.timerPeriod &= 0xE00;
     apu->pulse2.timerPeriod |= ((periodLo*2) & 0x1FF);
     calcSweepTarget(&apu->pulse2);
 }
 
 void setPulse1LengthAndPeriodHi(struct Apu *apu, int16 length, int16 periodHi) {
-    apu->pulse1.timerPeriod &= 0xE00;
+    apu->pulse1.timerPeriod &= 0x1FF;
     apu->pulse1.timerPeriod |= ((periodHi << 9) & 0xE00);
     apu->pulse1.currentStep = 0;
+    apu->pulse1.timer = apu->pulse1.timerPeriod;
     calcSweepTarget(&apu->pulse1);
     setLengthCounter(&apu->pulse1.lengthCounter, apu->pulse1.enabled, (length & 0x1F));
     apu->pulse1.envelope.startFlag = true;
 }
 
 void setPulse2LengthAndPeriodHi(struct Apu *apu, int16 length, int16 periodHi) {
-    apu->pulse2.timerPeriod &= 0xE00;
+    apu->pulse2.timerPeriod &= 0x1FF;
     apu->pulse2.timerPeriod |= ((periodHi << 9) & 0xE00);
     apu->pulse2.currentStep = 0;
+    apu->pulse2.timer = apu->pulse2.timerPeriod;
     calcSweepTarget(&apu->pulse2);
     setLengthCounter(&apu->pulse2.lengthCounter, apu->pulse2.enabled, (length & 0x1F));
     apu->pulse2.envelope.startFlag = true;
@@ -396,6 +410,7 @@ void setTriangleLengthCounterHaltAndLinearCounterReloadHold(struct Apu *apu, boo
 void setTrianglePeriod(struct Apu *apu, int16 period) {
     apu->triangle.timerPeriod = (period & 0x7FF);
     apu->triangle.linearCounter.reloadFlag = true;
+    apu->triangle.timer = apu->triangle.timerPeriod;
 }
 
 void setTriangleLength(struct Apu *apu, int16 length) {
@@ -404,15 +419,16 @@ void setTriangleLength(struct Apu *apu, int16 length) {
 }
 
 void setTrianglePeriodLo(struct Apu *apu, int16 periodLo) {
-    apu->pulse1.timerPeriod &= 0xFF;
-    apu->pulse1.timerPeriod |= (periodLo & 0xFF);
+    apu->triangle.timerPeriod &= 0x700;
+    apu->triangle.timerPeriod |= (periodLo & 0xFF);
 }
 
 void setTriangleLengthAndPeriodHi(struct Apu *apu, int16 length, int16 periodHi) {
-    apu->pulse1.timerPeriod &= 0x700;
-    apu->pulse1.timerPeriod |= ((periodHi << 8) & 0x700);
+    apu->triangle.timerPeriod &= 0x0FF;
+    apu->triangle.timerPeriod |= ((periodHi << 8) & 0x700);
     setLengthCounter(&apu->triangle.lengthCounter, apu->triangle.enabled, (length & 0x1F));
     apu->triangle.linearCounter.reloadFlag = true;
+    apu->triangle.timer = apu->triangle.timerPeriod;
 }
 
 void setNoiseLengthCounterHalt(struct Apu *apu, bool halt) {
@@ -426,11 +442,12 @@ void setNoiseMode(struct Apu *apu, bool mode) {
 void setNoisePeriod(struct Apu *apu, int16 period) {
     // Assuming NTSC:
     apu->noise.timerPeriod = noisePeriodTableNtsc[period & 0x0F];
+    apu->noise.timer = apu->noise.timerPeriod;
 }
 
 void setNoiseLengthCounter(struct Apu *apu, int16 length) {
     setLengthCounter(&apu->noise.lengthCounter, apu->noise.enabled, (length & 0x1F));
-    apu->pulse1.envelope.startFlag = true;
+    apu->noise.envelope.startFlag = true;
 }
 
 void setEnableChannels(struct Apu *apu, bool pulse1, bool pulse2, bool triangle, bool noise) {
@@ -478,13 +495,13 @@ void writeRegister(struct Apu *apu, int16 reg, int16 data) {
         setPulse2EnvelopeParameters(apu, (data & 0x20) >> 5, (data & 0x10) >> 4, (data & 0xF));
         break;
     case 0x05:
-        setPulse1SweepParameters(apu, (data & 0x80) >> 7, (data & 0x70) >> 4, (data & 0x08) >> 3, (data & 0x07));
+        setPulse2SweepParameters(apu, (data & 0x80) >> 7, (data & 0x70) >> 4, (data & 0x08) >> 3, (data & 0x07));
         break;
     case 0x06:
         setPulse2PeriodLo(apu, data);
         break;
     case 0x07:
-        setPulse1LengthAndPeriodHi(apu, (data & 0xF8) >> 3, (data & 0x07));
+        setPulse2LengthAndPeriodHi(apu, (data & 0xF8) >> 3, (data & 0x07));
         break;
     case 0x08:
         setTriangleLinearCounterParamsAndLengthCounterHalt(apu, (data & 0x80) >> 7, (data & 0x7F));
@@ -516,42 +533,7 @@ void writeRegister(struct Apu *apu, int16 reg, int16 data) {
 }
 
 void initApu(struct Apu *apu) {
-    // TODO! WHAT SHOULD THIS BE?
-    // AT MINIMUM: pulse1 sweep mode, pulse2 sweep mode, noise reg
-    // testing vals
-
-
-    //apu->triangle.enabled = true;
-    apu->pulse1.enabled = true;
-    //apu->pulse2.enabled = true;
-    //apu->noise.enabled = true;
-
-
-    apu->triangle.timerPeriod = 256;
-    apu->triangle.lengthCounter.counter = 192;
-    apu->triangle.currentStep = 0;
-    apu->triangle.lengthCounter.halt = false;
-    apu->triangle.linearCounter.counter = 384;
-
+    // TODO!
+    apu->pulse2.sweepNegateMode = true;
     apu->noise.reg = 1;
-    apu->noise.timerPeriod = 128;
-    apu->noise.envelope.constantVolume = true;
-    apu->noise.envelope.volume = 15;
-    apu->noise.lengthCounter.counter = 192;
-
-    apu->pulse1.envelope.output = 15;
-    apu->pulse1.lengthCounter.counter = 192;
-    apu->pulse1.sweepEnabled = true;
-    apu->pulse1.sweepMute = false;
-    apu->pulse1.sweepPeriod = 1;
-    apu->pulse1.sweepShift = 1;
-    apu->pulse1.sweepNegate = true;
-    setPulse1Period(apu, 512);
-    apu->pulse2.envelope.output = 15;
-    apu->pulse2.lengthCounter.counter = 192;
-    apu->pulse2.timerPeriod = 128;
-    apu->pulse2.envelope.loop = true;
-    apu->pulse2.envelope.constantVolume = false;
-    apu->pulse2.sweepNegate = true;
-    apu->pulse2.sweepShift = 0;
 }

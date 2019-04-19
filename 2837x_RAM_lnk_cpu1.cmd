@@ -86,12 +86,6 @@ SECTIONS
         PUTREADIDX :   TYPE = DSECT
     }  
 	
-	RFFTdata1        : > RAMGS4,    PAGE = 1, ALIGN = RFFT_ALIGNMENT
-   	RFFTdata2        : > RAMGS5,    PAGE = 1
-   	RFFTdata3        : > RAMGS6,    PAGE = 1
-	RFFTdata4        : > RAMGS7,    PAGE = 1
-	Ping             : > RAMGS8,    PAGE = 1
-	Pong             : > RAMGS9,    PAGE = 1
 }
 
 /*
