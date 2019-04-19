@@ -11,6 +11,7 @@ CMD_SRCS += \
 C_SRCS += \
 ../AIC23.c \
 ../APU.c \
+../Gui.c \
 ../InitAIC23.c \
 ../OneToOneI2CDriver.c \
 ../Player.c \
@@ -21,6 +22,7 @@ C_SRCS += \
 C_DEPS += \
 ./AIC23.d \
 ./APU.d \
+./Gui.d \
 ./InitAIC23.d \
 ./OneToOneI2CDriver.d \
 ./Player.d \
@@ -31,6 +33,7 @@ C_DEPS += \
 OBJS += \
 ./AIC23.obj \
 ./APU.obj \
+./Gui.obj \
 ./InitAIC23.obj \
 ./OneToOneI2CDriver.obj \
 ./Player.obj \
@@ -41,6 +44,7 @@ OBJS += \
 OBJS__QUOTED += \
 "AIC23.obj" \
 "APU.obj" \
+"Gui.obj" \
 "InitAIC23.obj" \
 "OneToOneI2CDriver.obj" \
 "Player.obj" \
@@ -51,6 +55,7 @@ OBJS__QUOTED += \
 C_DEPS__QUOTED += \
 "AIC23.d" \
 "APU.d" \
+"Gui.d" \
 "InitAIC23.d" \
 "OneToOneI2CDriver.d" \
 "Player.d" \
@@ -61,6 +66,7 @@ C_DEPS__QUOTED += \
 C_SRCS__QUOTED += \
 "../AIC23.c" \
 "../APU.c" \
+"../Gui.c" \
 "../InitAIC23.c" \
 "../OneToOneI2CDriver.c" \
 "../Player.c" \

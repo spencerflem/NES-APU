@@ -5,7 +5,7 @@
 #define cyclesPerSecond 1789772
 #define cyclesPerSample (float)cyclesPerSecond / (float)samplesPerSecond
 
-struct Envelope {
+typedef struct {
     int16 volume;
     bool loop;
     bool constantVolume;
@@ -14,23 +14,23 @@ struct Envelope {
     int16 dividerCounter;
     int16 decay;
     int16 output;
-};
+} Envelope;
 
-struct LinearCounter {
+typedef struct {
     int16 counter;
     int16 counterReloadVal;
     bool reloadFlag;
     bool reloadHold;
-};
+} LinearCounter;
 
-struct LengthCounter {
+typedef struct {
     int16 counter;
     bool halt;
-};
+} LengthCounter;
 
-struct Pulse {
-    struct Envelope envelope;
-    struct LengthCounter lengthCounter;
+typedef struct {
+    Envelope envelope;
+    LengthCounter lengthCounter;
     int16 timer;
     int16 timerPeriod;
     int16 duty;
@@ -46,72 +46,72 @@ struct Pulse {
     int16 sweepPeriod;
     bool sweepMute;
     bool enabled;
-};
+} Pulse;
 
-struct Triangle {
+typedef struct {
     int16 timerPeriod;
     int16 timer;
-    struct LengthCounter lengthCounter;
-    struct LinearCounter linearCounter;
+    LengthCounter lengthCounter;
+    LinearCounter linearCounter;
     int16 currentStep;
     int16 output;
     bool enabled;
-};
+} Triangle;
 
-struct Noise {
+typedef struct {
     int16 timerPeriod;
     int16 timer;
-    struct LengthCounter lengthCounter;
+    LengthCounter lengthCounter;
     bool mode;
     Uint16 reg;
-    struct Envelope envelope;
+    Envelope envelope;
     int16 output;
     bool enabled;
-};
+} Noise;
 
-struct Apu {
-    struct Pulse pulse1, pulse2;
-    struct Triangle triangle;
-    struct Noise noise;
+typedef struct {
+    Pulse pulse1, pulse2;
+    Triangle triangle;
+    Noise noise;
     bool frameMode;
     Uint16 frameCounter;
     float remainingCycles;
     int32 output;
-};
+} Apu;
 
-static const struct Apu EmptyApu;
+static const Apu EmptyApu;
 
-int32 processCycles(struct Apu *apu, float cycles);
-void setPulse1EnvelopeParameters(struct Apu *apu, bool loop, bool useConstantVolume, int16 periodAndVolume);
-void setPulse2EnvelopeParameters(struct Apu *apu, bool loop, bool useConstantVolume, int16 periodAndVolume);
-void setNoiseEnvelopeParameters(struct Apu *apu, bool loop, bool useConstantVolume, int16 periodAndVolume);
-void setPulse1SweepParameters(struct Apu *apu, bool enabled, int16 period, bool negate, int16 shift);
-void setPulse2SweepParameters(struct Apu *apu, bool enabled, int16 period, bool negate, int16 shift);
-void setPulse1Duty(struct Apu *apu, int16 duty);
-void setPulse2Duty(struct Apu *apu, int16 duty);
-void setPulse1LengthCounterHalt(struct Apu *apu, bool halt);
-void setPulse2LengthCounterHalt(struct Apu *apu, bool halt);
-void setPulse1Period(struct Apu *apu, int16 period);
-void setPulse2Period(struct Apu *apu, int16 period);
-void setPulse1Length(struct Apu *apu, int16 length);
-void setPulse2Length(struct Apu *apu, int16 length);
-void setPulse1PeriodLo(struct Apu *apu, int16 periodLo);
-void setPulse2PeriodLo(struct Apu *apu, int16 periodLo);
-void setPulse1LengthAndPeriodHi(struct Apu *apu, int16 length, int16 periodHi);
-void setPulse2LengthAndPeriodHi(struct Apu *apu, int16 length, int16 periodHi);
-void setTriangleLinearCounterParamsAndLengthCounterHalt(struct Apu *apu, bool linearReloadHoldLengthHalt, int16 reloadVal);
-void setTriangleLengthCounterHaltAndLinearCounterReloadHold(struct Apu *apu, bool linearReloadHoldLengthHalt);
-void setTrianglePeriod(struct Apu *apu, int16 period);
-void setTriangleLength(struct Apu *apu, int16 length);
-void setTrianglePeriodLo(struct Apu *apu, int16 periodLo);
-void setTriangleLengthAndPeriodHi(struct Apu *apu, int16 length, int16 periodHi);
-void setNoiseLengthCounterHalt(struct Apu *apu, bool halt);
-void setNoiseMode(struct Apu *apu, bool mode);
-void setNoisePeriod(struct Apu *apu, int16 period);
-void setNoiseLengthCounter(struct Apu *apu, int16 length);
-void setEnableChannels(struct Apu *apu, bool pulse1, bool pulse2, bool triangle, bool noise);
-void setFrameCounterMode(struct Apu *apu, bool mode);
-void writeRegister(struct Apu *apu, int16 reg, int16 data);
-void initApu(struct Apu *apu);
+int32 processCycles(Apu *apu, float cycles);
+void setPulse1EnvelopeParameters(Apu *apu, bool loop, bool useConstantVolume, int16 periodAndVolume);
+void setPulse2EnvelopeParameters(Apu *apu, bool loop, bool useConstantVolume, int16 periodAndVolume);
+void setNoiseEnvelopeParameters(Apu *apu, bool loop, bool useConstantVolume, int16 periodAndVolume);
+void setPulse1SweepParameters(Apu *apu, bool enabled, int16 period, bool negate, int16 shift);
+void setPulse2SweepParameters(Apu *apu, bool enabled, int16 period, bool negate, int16 shift);
+void setPulse1Duty(Apu *apu, int16 duty);
+void setPulse2Duty(Apu *apu, int16 duty);
+void setPulse1LengthCounterHalt(Apu *apu, bool halt);
+void setPulse2LengthCounterHalt(Apu *apu, bool halt);
+void setPulse1Period(Apu *apu, int16 period);
+void setPulse2Period(Apu *apu, int16 period);
+void setPulse1Length(Apu *apu, int16 length);
+void setPulse2Length(Apu *apu, int16 length);
+void setPulse1PeriodLo(Apu *apu, int16 periodLo);
+void setPulse2PeriodLo(Apu *apu, int16 periodLo);
+void setPulse1LengthAndPeriodHi(Apu *apu, int16 length, int16 periodHi);
+void setPulse2LengthAndPeriodHi(Apu *apu, int16 length, int16 periodHi);
+void setTriangleLinearCounterParamsAndLengthCounterHalt(Apu *apu, bool linearReloadHoldLengthHalt, int16 reloadVal);
+void setTriangleLengthCounterHaltAndLinearCounterReloadHold(Apu *apu, bool linearReloadHoldLengthHalt);
+void setTrianglePeriod(Apu *apu, int16 period);
+void setTriangleLength(Apu *apu, int16 length);
+void setTrianglePeriodLo(Apu *apu, int16 periodLo);
+void setTriangleLengthAndPeriodHi(Apu *apu, int16 length, int16 periodHi);
+void setNoiseLengthCounterHalt(Apu *apu, bool halt);
+void setNoiseMode(Apu *apu, bool mode);
+void setNoisePeriod(Apu *apu, int16 period);
+void setNoiseLengthCounter(Apu *apu, int16 length);
+void setEnableChannels(Apu *apu, bool pulse1, bool pulse2, bool triangle, bool noise);
+void setFrameCounterMode(Apu *apu, bool mode);
+void writeRegister(Apu *apu, int16 reg, int16 data);
+void initApu(Apu *apu);
 
 #endif /* APU_H_ */

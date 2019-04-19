@@ -1,10 +1,10 @@
 ******************************************************************************
              TMS320C2000 Linker PC v18.1.4                     
 ******************************************************************************
->> Linked Fri Apr 19 17:58:43 2019
+>> Linked Fri Apr 19 18:48:10 2019
 
 OUTPUT FILE NAME:   <Lab5.out>
-ENTRY POINT SYMBOL: "_c_int00"  address: 00083f8f
+ENTRY POINT SYMBOL: "_c_int00"  address: 00084dbc
 
 
 MEMORY CONFIGURATION
@@ -23,12 +23,12 @@ PAGE 0:
   RAMGS15               0001b000   00001000  00000000  00001000  RWIX
   BEGIN                 00080000   00000002  00000002  00000000  RWIX
   FLASHA                00080002   00001ffe  00000000  00001ffe  RWIX
-  FLASHB                00082000   00002000  00001ffe  00000002  RWIX
-  FLASHC                00084000   00002000  00000ef0  00001110  RWIX
+  FLASHB                00082000   00002000  00001ffb  00000005  RWIX
+  FLASHC                00084000   00002000  00000f80  00001080  RWIX
   FLASHD                00086000   00002000  0000003b  00001fc5  RWIX
   FLASHE                00088000   00008000  00000000  00008000  RWIX
   FLASHFGH              00090000   00018000  0001052f  00007ad1  RWIX
-  FLASHI                000a8000   00008000  00000000  00008000  RWIX
+  FLASHI                000a8000   00008000  00002f72  0000508e  RWIX
   FLASHJ                000b0000   00008000  00000000  00008000  RWIX
   FLASHK                000b8000   00002000  00000000  00002000  RWIX
   FLASHL                000ba000   00002000  00000000  00002000  RWIX
@@ -113,11 +113,13 @@ PAGE 1:
   OUTPUT_XBAR           00007a80   00000040  00000040  00000000  RWIX
   GPIOCTRL              00007c00   00000180  00000180  00000000  RWIX
   GPIODAT               00007f00   00000030  00000030  00000000  RWIX
-  RAMLS5                0000a800   00000800  0000032d  000004d3  RWIX
+  RAMLS5                0000a800   00000800  0000017f  00000681  RWIX
   RAMD1                 0000b800   00000800  00000000  00000800  RWIX
   RAMGS0                0000c000   00001000  00000000  00001000  RWIX
   RAMGS1                0000d000   00001000  00000000  00001000  RWIX
-  RAMGS234              0000e000   00003000  00002f72  0000008e  RWIX
+  RAMGS2                0000e000   00001000  00000000  00001000  RWIX
+  RAMGS3                0000f000   00001000  00000000  00001000  RWIX
+  RAMGS4                00010000   00001000  00000000  00001000  RWIX
   RAMGS5                00011000   00001000  00000000  00001000  RWIX
   RAMGS6                00012000   00001000  00000000  00001000  RWIX
   RAMGS7                00013000   00001000  00000000  00001000  RWIX
@@ -161,9 +163,10 @@ SECTION ALLOCATION MAP
 section   page    origin      length       input sections
 --------  ----  ----------  ----------   ----------------
 .cinit     0    00082000    00000e32     
-                  00082000    00000d08     Player.obj (.cinit)
-                  00082d08    00000090     F2837xD_struct.obj (.cinit)
-                  00082d98    0000007c     APU.obj (.cinit)
+                  00082000    00000cf4     Gui.obj (.cinit)
+                  00082cf4    00000090     F2837xD_struct.obj (.cinit)
+                  00082d84    0000007c     APU.obj (.cinit)
+                  00082e00    00000014     Player.obj (.cinit)
                   00082e14    0000000e     rts2800_fpu32.lib : exit.c.obj (.cinit)
                   00082e22    00000005                       : _lock.c.obj (.cinit:__lock)
                   00082e27    00000005                       : _lock.c.obj (.cinit:__unlock)
@@ -214,8 +217,8 @@ PUTREADIDX
 *          0    0003f884    00000004     DSECT
                   0003f884    00000004     F2837xD_Ipc_Driver.obj (PUTREADIDX)
 
-gui        1    0000e000    00002f72     UNINITIALIZED
-                  0000e000    00002f72     Player.obj (gui)
+gui        0    000a8000    00002f72     UNINITIALIZED
+                  000a8000    00002f72     Gui.obj (gui)
 
 PieVectTableFile 
 *          0    00000d00    000001c0     DSECT
@@ -238,7 +241,7 @@ FlashScalingVar
 .econst    0    00090000    0001052f     
                   00090000    0001051d     Player.obj (.econst:.string:_intro)
                   000a051d    00000001     lcd.obj (.econst:_clearCommand)
-                  000a051e    0000000b     Player.obj (.econst:.string)
+                  000a051e    0000000b     Gui.obj (.econst:.string)
                   000a0529    00000005     lcd.obj (.econst:_initCommands)
                   000a052e    00000001     lcd.obj (.econst:_shiftCommand)
 
@@ -626,53 +629,53 @@ CpuSysRegsFile
 *          1    0005d300    00000082     UNINITIALIZED
                   0005d300    00000082     F2837xD_GlobalVariableDefs.obj (CpuSysRegsFile)
 
-.text.1    0    00082e54    000011ac     
+.text.1    0    00082e54    000011a9     
                   00082e54    00000732     APU.obj (.text)
-                  00083586    0000061f     Player.obj (.text)
-                  00083ba5    00000347     F2837xD_SysCtrl.obj (.text)
-                  00083eec    000000a3     OneToOneI2CDriver.obj (.text)
-                  00083f8f    00000056     rts2800_fpu32.lib : boot28.asm.obj (.text)
-                  00083fe5    0000001a     io.obj (.text)
-                  00083fff    00000001     rts2800_fpu32.lib : startup.c.obj (.text)
+                  00083586    000005c6     Gui.obj (.text)
+                  00083b4c    00000347     F2837xD_SysCtrl.obj (.text)
+                  00083e93    000000e6     Player.obj (.text)
+                  00083f79    00000075     lcd.obj (.text)
+                  00083fee    00000009     rts2800_fpu32.lib : _lock.c.obj (.text)
+                  00083ff7    00000003     F2837xD_DBGIER.obj (.text)
+                  00083ffa    00000002     rts2800_fpu32.lib : pre_init.c.obj (.text)
+                  00083ffc    00000001                       : startup.c.obj (.text)
 
-.text.2    0    00084000    00000ef0     
+.text.2    0    00084000    00000f80     
                   00084000    00000585     F2837xD_DefaultISR.obj (.text:retain)
                   00084585    00000244     F2837xD_Gpio.obj (.text)
                   000847c9    00000211     InitAIC23.obj (.text)
                   000849da    000001b8     F2837xD_Mcbsp.obj (.text)
                   00084b92    00000187     interrupt.obj (.text)
-                  00084d19    00000075     lcd.obj (.text)
-                  00084d8e    00000055     Player.obj (.text:retain)
-                  00084de3    00000042     AIC23.obj (.text)
-                  00084e25    00000029     rts2800_fpu32.lib : exit.c.obj (.text)
-                  00084e4e    00000024                       : cpy_tbl.c.obj (.text)
-                  00084e72    00000022                       : i_div28.asm.obj (.text)
-                  00084e94    0000001d                       : memcpy.c.obj (.text)
-                  00084eb1    00000019                       : args_main.c.obj (.text)
-                  00084eca    00000018                       : ll_aox28.asm.obj (.text)
-                  00084ee2    00000009                       : _lock.c.obj (.text)
-                  00084eeb    00000003     F2837xD_DBGIER.obj (.text)
-                  00084eee    00000002     rts2800_fpu32.lib : pre_init.c.obj (.text)
+                  00084d19    000000a3     OneToOneI2CDriver.obj (.text)
+                  00084dbc    00000056     rts2800_fpu32.lib : boot28.asm.obj (.text)
+                  00084e12    00000055     Player.obj (.text:retain)
+                  00084e67    00000042     AIC23.obj (.text)
+                  00084ea9    00000029     rts2800_fpu32.lib : exit.c.obj (.text)
+                  00084ed2    00000024                       : cpy_tbl.c.obj (.text)
+                  00084ef6    00000022                       : i_div28.asm.obj (.text)
+                  00084f18    0000001d                       : memcpy.c.obj (.text)
+                  00084f35    0000001a     io.obj (.text)
+                  00084f4f    00000019     rts2800_fpu32.lib : args_main.c.obj (.text)
+                  00084f68    00000018                       : ll_aox28.asm.obj (.text)
 
-.ebss.1    1    0000a800    000002b5     UNINITIALIZED
-                  0000a800    000001b8     Player.obj (.ebss)
-                  0000a9b8    00000006     F2837xD_TempSensorConv.obj (.ebss)
-                  0000a9be    00000002     rts2800_fpu32.lib : _lock.c.obj (.ebss:__lock)
-                  0000a9c0    000000d4     APU.obj (.ebss)
-                  0000aa94    00000018     F2837xD_CpuTimers.obj (.ebss)
-                  0000aaac    00000006     rts2800_fpu32.lib : exit.c.obj (.ebss)
-                  0000aab2    00000002                       : _lock.c.obj (.ebss:__unlock)
-                  0000aab4    00000001     F2837xD_sci_io.obj (.ebss)
-
-.ebss.2    1    0000aac0    00000078     UNINITIALIZED
-                  0000aac0    00000078     F2837xD_struct.obj (.ebss)
+.ebss      1    0000a800    0000017f     UNINITIALIZED
+                  0000a800    000000d4     APU.obj (.ebss)
+                  0000a8d4    00000018     F2837xD_CpuTimers.obj (.ebss)
+                  0000a8ec    0000000a     Player.obj (.ebss)
+                  0000a8f6    00000006     F2837xD_TempSensorConv.obj (.ebss)
+                  0000a8fc    00000002     rts2800_fpu32.lib : _lock.c.obj (.ebss:__lock)
+                  0000a8fe    00000002                       : _lock.c.obj (.ebss:__unlock)
+                  0000a900    00000078     F2837xD_struct.obj (.ebss)
+                  0000a978    00000006     rts2800_fpu32.lib : exit.c.obj (.ebss)
+                  0000a97e    00000001     F2837xD_sci_io.obj (.ebss)
 
 MODULE SUMMARY
 
        Module                           code   initialized data   uninitialized data
        ------                           ----   ----------------   ------------------
     .\
-       Player.obj                       1652   70192              12586             
+       Player.obj                       315    66865              10                
+       Gui.obj                          1478   3327               12146             
        APU.obj                          1842   156                212               
        InitAIC23.obj                    529    0                  0                 
        OneToOneI2CDriver.obj            163    0                  0                 
@@ -680,7 +683,7 @@ MODULE SUMMARY
        AIC23.obj                        66     0                  0                 
        io.obj                           26     0                  0                 
     +--+--------------------------------+------+------------------+--------------------+
-       Total:                           4395   70355              12798             
+       Total:                           4536   70355              12368             
                                                                                     
     .\ADC_TIMER_Driverlib\driverlib\
        interrupt.obj                    391    0                  0                 
@@ -724,7 +727,7 @@ MODULE SUMMARY
                                                                                     
        Stack:                           0      0                  512               
     +--+--------------------------------+------+------------------+--------------------+
-       Grand Total:                     8468   70527              21916             
+       Grand Total:                     8609   70527              21486             
 
 
 GLOBAL DATA SYMBOLS: SORTED BY DATA PAGE
@@ -860,121 +863,41 @@ address     data page           name
 
 00007f00     1fc (00007f00)     _GpioDataRegs
 
-0000a800     2a0 (0000a800)     _even
-0000a802     2a0 (0000a800)     _wait
-0000a804     2a0 (0000a800)     _sample
-0000a806     2a0 (0000a800)     _cyclesToProcess
-0000a808     2a0 (0000a800)     _index
+0000a800     2a0 (0000a800)     _noisePeriodTableNtsc
+0000a810     2a0 (0000a800)     _pulseSteps
 
-0000a880     2a2 (0000a880)     _gui
+0000a840     2a1 (0000a840)     _lengthTable
+0000a860     2a1 (0000a840)     _triangleSteps
 
-0000a9b8     2a6 (0000a980)     _tempSensor_tempOffset
-0000a9ba     2a6 (0000a980)     _tempSensor_scaleFactor
-0000a9bc     2a6 (0000a980)     _tempSensor_tempSlope
-0000a9be     2a6 (0000a980)     __lock
+0000a8d4     2a3 (0000a8c0)     _CpuTimer1
+0000a8dc     2a3 (0000a8c0)     _CpuTimer2
+0000a8e4     2a3 (0000a8c0)     _CpuTimer0
+0000a8ec     2a3 (0000a8c0)     _even
+0000a8ee     2a3 (0000a8c0)     _wait
+0000a8f0     2a3 (0000a8c0)     _sample
+0000a8f2     2a3 (0000a8c0)     _cyclesToProcess
+0000a8f4     2a3 (0000a8c0)     _index
+0000a8f6     2a3 (0000a8c0)     _tempSensor_tempOffset
+0000a8f8     2a3 (0000a8c0)     _tempSensor_scaleFactor
+0000a8fa     2a3 (0000a8c0)     _tempSensor_tempSlope
+0000a8fc     2a3 (0000a8c0)     __lock
+0000a8fe     2a3 (0000a8c0)     __unlock
 
-0000a9c0     2a7 (0000a9c0)     _noisePeriodTableNtsc
-0000a9d0     2a7 (0000a9c0)     _pulseSteps
+0000a900     2a4 (0000a900)     _SCI
+0000a904     2a4 (0000a900)     _MCBSP
+0000a908     2a4 (0000a900)     _I2C
+0000a90c     2a4 (0000a900)     _SDFM
+0000a912     2a4 (0000a900)     _EQEP
+0000a91a     2a4 (0000a900)     _SPI
+0000a922     2a4 (0000a900)     _ADC
+0000a92c     2a4 (0000a900)     _ECAP
 
-0000aa00     2a8 (0000aa00)     _lengthTable
-0000aa20     2a8 (0000aa00)     _triangleSteps
-
-0000aa94     2aa (0000aa80)     _CpuTimer1
-0000aa9c     2aa (0000aa80)     _CpuTimer2
-0000aaa4     2aa (0000aa80)     _CpuTimer0
-0000aaac     2aa (0000aa80)     ___TI_enable_exit_profile_output
-0000aaae     2aa (0000aa80)     ___TI_cleanup_ptr
-0000aab0     2aa (0000aa80)     ___TI_dtors_ptr
-0000aab2     2aa (0000aa80)     __unlock
-0000aab4     2aa (0000aa80)     _deviceOpen
-
-0000aac0     2ab (0000aac0)     _SCI
-0000aac4     2ab (0000aac0)     _MCBSP
-0000aac8     2ab (0000aac0)     _I2C
-0000aacc     2ab (0000aac0)     _SDFM
-0000aad2     2ab (0000aac0)     _EQEP
-0000aada     2ab (0000aac0)     _SPI
-0000aae2     2ab (0000aac0)     _ADC
-0000aaec     2ab (0000aac0)     _ECAP
-
-0000ab00     2ac (0000ab00)     _EPWM
-0000ab1a     2ac (0000ab00)     _TRIP_SEL
-
-0000e000     380 (0000e000)     _guiSetPu1SwePeriod
-
-0000e140     385 (0000e140)     _guiSetPu1SweNegate
-
-0000e280     38a (0000e280)     _guiSetNoiEnvConst
-
-0000e3c0     38f (0000e3c0)     _guiSetPu1SweEnabled
-
-0000e500     394 (0000e500)     _guiSetNoiEnvVol
-
-0000e640     399 (0000e640)     _guiSetPu2SweNegate
-
-0000e780     39e (0000e780)     _guiSetPu2SweShift
-
-0000e8c0     3a3 (0000e8c0)     _guiSetPu2SweEnabled
-
-0000ea00     3a8 (0000ea00)     _guiSetPu2SwePeriod
-
-0000eb40     3ad (0000eb40)     _guiSetPu1SweShift
-
-0000ec80     3b2 (0000ec80)     _guiRecPu1
-
-0000edc0     3b7 (0000edc0)     _guiRecPu2
-
-0000ef00     3bc (0000ef00)     _guiTriangle
-
-0000f040     3c1 (0000f040)     _guiNoise
-
-0000f180     3c6 (0000f180)     _guiSetPu1
-
-0000f2c0     3cb (0000f2c0)     _guiSetPu2
-
-0000f400     3d0 (0000f400)     _guiRecTri
-
-0000f540     3d5 (0000f540)     _guiLoop
-
-0000f680     3da (0000f680)     _guiLoopPlay
-
-0000f7c0     3df (0000f7c0)     _guiMain
-
-0000f900     3e4 (0000f900)     _guiFile
-
-0000fa40     3e9 (0000fa40)     _guiPulse2
-
-0000fb80     3ee (0000fb80)     _guiRecNoi
-
-0000fcc0     3f3 (0000fcc0)     _guiRecord
-
-0000fe00     3f8 (0000fe00)     _guiSetNoiMode
-
-0000ff40     3fd (0000ff40)     _guiSetNoiEnv
-
-00010080     402 (00010080)     _guiSetPu2Env
-
-000101c0     407 (000101c0)     _guiSetPu2Swe
-
-00010300     40c (00010300)     _guiSetPu2EnvVol
-
-00010440     411 (00010440)     _guiSetPu2EnvConst
-
-00010580     416 (00010580)     _guiSetPu1EnvVol
-
-000106c0     41b (000106c0)     _guiSetPu1Duty
-
-00010800     420 (00010800)     _guiSetPu1Env
-
-00010940     425 (00010940)     _guiPulse1
-
-00010a80     42a (00010a80)     _guiSetNoi
-
-00010bc0     42f (00010bc0)     _guiSetPu2Duty
-
-00010d00     434 (00010d00)     _guiSetPu1EnvConst
-
-00010e40     439 (00010e40)     _guiSetPu1Swe
+0000a940     2a5 (0000a940)     _EPWM
+0000a95a     2a5 (0000a940)     _TRIP_SEL
+0000a978     2a5 (0000a940)     ___TI_enable_exit_profile_output
+0000a97a     2a5 (0000a940)     ___TI_cleanup_ptr
+0000a97c     2a5 (0000a940)     ___TI_dtors_ptr
+0000a97e     2a5 (0000a940)     _deviceOpen
 
 0003f800     fe0 (0003f800)     _g_asIPCCPU2toCPU1Buffers
 
@@ -1037,19 +960,95 @@ address     data page           name
 000a0529    2814 (000a0500)     _initCommands
 000a052e    2814 (000a0500)     _shiftCommand
 
+000a8000    2a00 (000a8000)     _guiSetPu2EnvVol
+
+000a8140    2a05 (000a8140)     _guiSetPu1EnvConst
+
+000a8280    2a0a (000a8280)     _guiSetNoiEnvVol
+
+000a83c0    2a0f (000a83c0)     _guiSetPu2EnvConst
+
+000a8500    2a14 (000a8500)     _guiSetNoiMode
+
+000a8640    2a19 (000a8640)     _guiSetPu2Swe
+
+000a8780    2a1e (000a8780)     _guiSetPu1EnvVol
+
+000a88c0    2a23 (000a88c0)     _guiSetNoiEnv
+
+000a8a00    2a28 (000a8a00)     _guiSetPu2SweEnabled
+
+000a8b40    2a2d (000a8b40)     _guiSetPu1SweShift
+
+000a8c80    2a32 (000a8c80)     _guiSetPu2SweNegate
+
+000a8dc0    2a37 (000a8dc0)     _guiSetPu2SwePeriod
+
+000a8f00    2a3c (000a8f00)     _guiSetPu1SweEnabled
+
+000a9040    2a41 (000a9040)     _guiSetNoiEnvConst
+
+000a9180    2a46 (000a9180)     _guiSetPu1SweNegate
+
+000a92c0    2a4b (000a92c0)     _guiSetPu1SwePeriod
+
+000a9400    2a50 (000a9400)     _guiPulse2
+
+000a9540    2a55 (000a9540)     _guiPulse1
+
+000a9680    2a5a (000a9680)     _guiTriangle
+
+000a97c0    2a5f (000a97c0)     _guiRecPu1
+
+000a9900    2a64 (000a9900)     _guiNoise
+
+000a9a40    2a69 (000a9a40)     _guiFile
+
+000a9b80    2a6e (000a9b80)     _guiMain
+
+000a9cc0    2a73 (000a9cc0)     _guiLoop
+
+000a9e00    2a78 (000a9e00)     _guiRecord
+
+000a9f40    2a7d (000a9f40)     _guiLoopPlay
+
+000aa080    2a82 (000aa080)     _guiRecPu2
+
+000aa1c0    2a87 (000aa1c0)     _guiSetPu1Env
+
+000aa300    2a8c (000aa300)     _guiSetPu1Duty
+
+000aa440    2a91 (000aa440)     _guiSetPu1Swe
+
+000aa580    2a96 (000aa580)     _guiSetPu2Env
+
+000aa6c0    2a9b (000aa6c0)     _guiSetPu2Duty
+
+000aa800    2aa0 (000aa800)     _guiRecNoi
+
+000aa940    2aa5 (000aa940)     _guiRecTri
+
+000aaa80    2aaa (000aaa80)     _guiSetPu1
+
+000aabc0    2aaf (000aabc0)     _guiSetNoi
+
+000aad00    2ab4 (000aad00)     _guiSetPu2
+
+000aae40    2ab9 (000aae40)     _guiSetPu2SweShift
+
 
 GLOBAL SYMBOLS: SORTED ALPHABETICALLY BY Name 
 
 page  address   name                                                   
 ----  -------   ----                                                   
 abs   ffffffff  .text                                                  
-0     00084e25  C$$EXIT                                                
-0     00084e72  I$$DIV                                                 
-0     00084e83  I$$MOD                                                 
-0     00084eca  LL$$AND                                                
-0     00084ed2  LL$$OR                                                 
-0     00084eda  LL$$XOR                                                
-1     0000aae2  _ADC                                                   
+0     00084ea9  C$$EXIT                                                
+0     00084ef6  I$$DIV                                                 
+0     00084f07  I$$MOD                                                 
+0     00084f68  LL$$AND                                                
+0     00084f70  LL$$OR                                                 
+0     00084f78  LL$$XOR                                                
+1     0000a922  _ADC                                                   
 0     000840be  _ADCA1_ISR                                             
 0     0008433e  _ADCA2_ISR                                             
 0     00084348  _ADCA3_ISR                                             
@@ -1081,9 +1080,9 @@ abs   ffffffff  .text
 1     00007580  _AdcdRegs                                              
 1     00000b60  _AdcdResultRegs                                        
 1     0005d180  _AnalogSubsysRegs                                      
-0     00083e98  _AuxAuxClkSel                                          
-0     00083e82  _AuxIntOsc2Sel                                         
-0     00083e8c  _AuxXtalOscSel                                         
+0     00083e3f  _AuxAuxClkSel                                          
+0     00083e29  _AuxIntOsc2Sel                                         
+0     00083e33  _AuxXtalOscSel                                         
 0     00084970  _BitBangedCodecSpiTransmit                             
 0     0008430c  _CANA0_ISR                                             
 0     00084316  _CANA1_ISR                                             
@@ -1099,7 +1098,7 @@ abs   ffffffff  .text
 0     000843ca  _CLA1_8_ISR                                            
 0     00084550  _CLA_OVERFLOW_ISR                                      
 0     0008455a  _CLA_UNDERFLOW_ISR                                     
-0     00084e19  _CLKsampleratecontrol                                  
+0     00084e9d  _CLKsampleratecontrol                                  
 1     00048000  _CanaRegs                                              
 1     0004a000  _CanbRegs                                              
 1     00001400  _Cla1Regs                                              
@@ -1114,13 +1113,13 @@ abs   ffffffff  .text
 1     00005d40  _Cmpss7Regs                                            
 1     00005d60  _Cmpss8Regs                                            
 1     0005d300  _CpuSysRegs                                            
-1     0000aaa4  _CpuTimer0                                             
+1     0000a8e4  _CpuTimer0                                             
 1     00000c00  _CpuTimer0Regs                                         
-1     0000aa94  _CpuTimer1                                             
+1     0000a8d4  _CpuTimer1                                             
 1     00000c08  _CpuTimer1Regs                                         
-1     0000aa9c  _CpuTimer2                                             
+1     0000a8dc  _CpuTimer2                                             
 1     00000c10  _CpuTimer2Regs                                         
-0     00083e41  _CsmUnlock                                             
+0     00083de8  _CsmUnlock                                             
 0     00084014  _DATALOG_ISR                                           
 0     00084258  _DMA_CH1_ISR                                           
 0     00084262  _DMA_CH2_ISR                                           
@@ -1128,7 +1127,7 @@ abs   ffffffff  .text
 0     00084276  _DMA_CH4_ISR                                           
 0     00084280  _DMA_CH5_ISR                                           
 0     0008428a  _DMA_CH6_ISR                                           
-0     00084e0d  _DSPdigaudinterface                                    
+0     00084e91  _DSPdigaudinterface                                    
 1     00005c00  _DacaRegs                                              
 1     00005c10  _DacbRegs                                              
 1     00005c20  _DaccRegs                                              
@@ -1138,11 +1137,11 @@ abs   ffffffff  .text
 1     00078200  _DcsmZ2Otp                                             
 1     0005f040  _DcsmZ2Regs                                            
 1     0005d000  _DevCfgRegs                                            
-0     00083ca5  _DisableDog                                            
-0     00083c66  _DisablePeripheralClocks                               
+0     00083c4c  _DisableDog                                            
+0     00083c0d  _DisablePeripheralClocks                               
 1     00007980  _DmaClaSrcSelRegs                                      
 1     00001000  _DmaRegs                                               
-1     0000aaec  _ECAP                                                  
+1     0000a92c  _ECAP                                                  
 0     000841ae  _ECAP1_ISR                                             
 0     000841b8  _ECAP2_ISR                                             
 0     000841c2  _ECAP3_ISR                                             
@@ -1158,7 +1157,7 @@ abs   ffffffff  .text
 0     00084514  _EMIF_ERROR_ISR                                        
 0     0008456e  _EMPTY_ISR                                             
 0     00084028  _EMU_ISR                                               
-1     0000ab00  _EPWM                                                  
+1     0000a940  _EPWM                                                  
 0     0008446a  _EPWM10_ISR                                            
 0     00084442  _EPWM10_TZ_ISR                                         
 0     00084474  _EPWM11_ISR                                            
@@ -1196,7 +1195,7 @@ abs   ffffffff  .text
 1     00004700  _EPwm8Regs                                             
 1     00004800  _EPwm9Regs                                             
 1     00007a00  _EPwmXbarRegs                                          
-1     0000aad2  _EQEP                                                  
+1     0000a912  _EQEP                                                  
 0     000841ea  _EQEP1_ISR                                             
 0     000841f4  _EQEP2_ISR                                             
 0     000841fe  _EQEP3_ISR                                             
@@ -1232,19 +1231,19 @@ abs   ffffffff  .text
 0     000847ab  _GPIO_WritePin                                         
 1     00007c00  _GpioCtrlRegs                                          
 1     00007f00  _GpioDataRegs                                          
-0     00083eb6  _HALT                                                  
-0     00083ecf  _HIB                                                   
-1     0000aac8  _I2C                                                   
+0     00083e5d  _HALT                                                  
+0     00083e76  _HIB                                                   
+1     0000a908  _I2C                                                   
 0     0008429e  _I2CA_FIFO_ISR                                         
 0     00084294  _I2CA_ISR                                              
 0     000842b2  _I2CB_FIFO_ISR                                         
 0     000842a8  _I2CB_ISR                                              
-0     00083f37  _I2C_O2O_Master_Init                                   
-0     00083f5b  _I2C_O2O_SendBytes                                     
-0     00084e10  _I2Sdigaudinterface                                    
+0     00084d64  _I2C_O2O_Master_Init                                   
+0     00084d88  _I2C_O2O_SendBytes                                     
+0     00084e94  _I2Sdigaudinterface                                    
 1     00007300  _I2caRegs                                              
 1     00007340  _I2cbRegs                                              
-0     00083ea2  _IDLE                                                  
+0     00083e49  _IDLE                                                  
 0     0008403c  _ILLEGAL_ISR                                           
 0     00084410  _IPC0_ISR                                              
 0     0008441a  _IPC1_ISR                                              
@@ -1252,7 +1251,7 @@ abs   ffffffff  .text
 0     0008442e  _IPC3_ISR                                              
 0     00084ae7  _IniMcbspb12bit                                        
 0     000847c9  _InitAIC23                                             
-0     00083d79  _InitAuxPll                                            
+0     00083d20  _InitAuxPll                                            
 0     0008493e  _InitBigBangedCodecSPI                                 
 0     00008000  _InitFlash                                             
 0     00084585  _InitGpio                                              
@@ -1274,17 +1273,17 @@ abs   ffffffff  .text
 0     00084ae0  _InitMcbspb8bit                                        
 0     00084b1e  _InitMcbspbGpio                                        
 0     00084ad1  _InitMcbspbInt                                         
-0     00083be2  _InitPeripheralClocks                                  
+0     00083b89  _InitPeripheralClocks                                  
 0     00084993  _InitSPIA                                              
-0     00083ba5  _InitSysCtrl                                           
-0     00083cb3  _InitSysPll                                            
+0     00083b4c  _InitSysCtrl                                           
+0     00083c5a  _InitSysPll                                            
 1     00007900  _InputXbarRegs                                         
 0     00084cce  _Interrupt_disable                                     
 0     00084c9a  _Interrupt_enable                                      
 0     00084c3d  _Interrupt_initModule                                  
 0     00084c7a  _Interrupt_initVectorTable                             
 1     00050000  _IpcRegs                                               
-1     0000aac4  _MCBSP                                                 
+1     0000a904  _MCBSP                                                 
 0     00084230  _MCBSPA_RX_ISR                                         
 0     0008423a  _MCBSPA_TX_ISR                                         
 0     00084244  _MCBSPB_RX_ISR                                         
@@ -1309,10 +1308,10 @@ abs   0000003b  _RamfuncsLoadSize
 0     0000803b  _RamfuncsRunEnd                                        
 abs   0000003b  _RamfuncsRunSize                                       
 0     00008000  _RamfuncsRunStart                                      
-0     00083c8d  _ReleaseFlashPump                                      
+0     00083c34  _ReleaseFlashPump                                      
 1     0005e608  _RomPrefetchRegs                                       
 1     0005f540  _RomWaitStateRegs                                      
-1     0000aac0  _SCI                                                   
+1     0000a900  _SCI                                                   
 0     000842e4  _SCIA_RX_ISR                                           
 0     000842ee  _SCIA_TX_ISR                                           
 0     000842f8  _SCIB_RX_ISR                                           
@@ -1323,15 +1322,15 @@ abs   0000003b  _RamfuncsRunSize
 0     000842da  _SCID_TX_ISR                                           
 0     00084488  _SD1_ISR                                               
 0     00084492  _SD2_ISR                                               
-1     0000aacc  _SDFM                                                  
-1     0000aada  _SPI                                                   
+1     0000a90c  _SDFM                                                  
+1     0000a91a  _SPI                                                   
 0     00084208  _SPIA_RX_ISR                                           
 0     00084212  _SPIA_TX_ISR                                           
 0     0008421c  _SPIB_RX_ISR                                           
 0     00084226  _SPIB_TX_ISR                                           
 0     0008449c  _SPIC_RX_ISR                                           
 0     000844a6  _SPIC_TX_ISR                                           
-0     00083eab  _STANDBY                                               
+0     00083e52  _STANDBY                                               
 0     0008453c  _SYS_PLL_SLIP_ISR                                      
 1     00007200  _SciaRegs                                              
 1     00007210  _ScibRegs                                              
@@ -1339,24 +1338,24 @@ abs   0000003b  _RamfuncsRunSize
 1     00007230  _ScidRegs                                              
 1     00005e00  _Sdfm1Regs                                             
 1     00005e80  _Sdfm2Regs                                             
-0     00083c7e  _SeizeFlashPump                                        
-0     00083c97  _ServiceDog                                            
-0     00084eeb  _SetDBGIER                                             
+0     00083c25  _SeizeFlashPump                                        
+0     00083c3e  _ServiceDog                                            
+0     00083ff7  _SetDBGIER                                             
 0     000849cf  _SpiTransmit                                           
 1     00006100  _SpiaRegs                                              
 1     00006110  _SpibRegs                                              
 1     00006120  _SpicRegs                                              
 1     00007940  _SyncSocRegs                                           
-0     00083e62  _SysIntOsc1Sel                                         
-0     00083e6c  _SysIntOsc2Sel                                         
-0     00083e76  _SysXtalOscSel                                         
+0     00083e09  _SysIntOsc1Sel                                         
+0     00083e13  _SysIntOsc2Sel                                         
+0     00083e1d  _SysXtalOscSel                                         
 0     000840fa  _TIMER0_ISR                                            
 0     00084000  _TIMER1_ISR                                            
 0     0008400a  _TIMER2_ISR                                            
-1     0000ab1a  _TRIP_SEL                                              
+1     0000a95a  _TRIP_SEL                                              
 0     000844b0  _UPPA_ISR                                              
 0     000844ba  _USBA_ISR                                              
-0     00084e13  _USBsampleratecontrol                                  
+0     00084e97  _USBsampleratecontrol                                  
 0     000840a0  _USER10_ISR                                            
 0     000840aa  _USER11_ISR                                            
 0     000840b4  _USER12_ISR                                            
@@ -1382,9 +1381,9 @@ abs   0000003b  _RamfuncsRunSize
 1     00007070  _XintRegs                                              
 1     00000600  __STACK_END                                            
 abs   00000200  __STACK_SIZE                                           
-1     0000aaae  ___TI_cleanup_ptr                                      
-1     0000aab0  ___TI_dtors_ptr                                        
-1     0000aaac  ___TI_enable_exit_profile_output                       
+1     0000a97a  ___TI_cleanup_ptr                                      
+1     0000a97c  ___TI_dtors_ptr                                        
+1     0000a978  ___TI_enable_exit_profile_output                       
 abs   ffffffff  ___TI_pprof_out_hndl                                   
 abs   ffffffff  ___TI_prof_data_size                                   
 abs   ffffffff  ___TI_prof_data_start                                  
@@ -1394,200 +1393,200 @@ abs   ffffffff  ___c_args__
 abs   ffffffff  ___etext__                                             
 abs   ffffffff  ___pinit__                                             
 abs   ffffffff  ___text__                                              
-0     00084eb1  __args_main                                            
-1     0000a9be  __lock                                                 
-0     00084eea  __nop                                                  
-0     00084ee6  __register_lock                                        
-0     00084ee2  __register_unlock                                      
+0     00084f4f  __args_main                                            
+1     0000a8fc  __lock                                                 
+0     00083ff6  __nop                                                  
+0     00083ff2  __register_lock                                        
+0     00083fee  __register_unlock                                      
 1     00000400  __stack                                                
-0     00083fff  __system_post_cinit                                    
-0     00084eee  __system_pre_init                                      
-1     0000aab2  __unlock                                               
-0     00084e07  _aaudpath                                              
-0     00084e25  _abort                                                 
-0     000835f3  _actFile                                               
-0     00083603  _actFileBack                                           
-0     000835fb  _actLoop                                               
-0     0008360b  _actLoopBack                                           
-0     00083613  _actLoopPlay                                           
-0     00083623  _actLoopPlayBack                                       
-0     0008364b  _actNoise                                              
-0     0008369f  _actNoiseBack                                          
-0     000836a7  _actNoiseRecord                                        
-0     000836b7  _actNoiseReset                                         
-0     000836af  _actNoiseSettings                                      
-0     00083633  _actPulse1                                             
-0     00083653  _actPulse1Back                                         
-0     0008365b  _actPulse1Record                                       
-0     0008366b  _actPulse1Reset                                        
-0     00083663  _actPulse1Settings                                     
-0     0008363b  _actPulse2                                             
-0     0008366f  _actPulse2Back                                         
-0     00083677  _actPulse2Record                                       
-0     00083687  _actPulse2Reset                                        
-0     0008367f  _actPulse2Settings                                     
-0     000836d3  _actRecNoiBack                                         
-0     000836bb  _actRecPu1Back                                         
-0     000836c3  _actRecPu2Back                                         
-0     000836cb  _actRecTriBack                                         
-0     0008361b  _actRecord                                             
-0     0008362b  _actRecordBack                                         
-0     0008371b  _actSetNoiBack                                         
-0     0008372b  _actSetNoiEnv                                          
-0     000837f3  _actSetNoiEnvBack                                      
-0     00083903  _actSetNoiEnvConstBack                                 
-0     0008390f  _actSetNoiEnvConstSaw                                  
-0     0008390b  _actSetNoiEnvConstUse                                  
-0     00083803  _actSetNoiEnvMode                                      
-0     000837fb  _actSetNoiEnvVol                                       
-0     000838c3  _actSetNoiEnvVol0                                      
-0     000838c7  _actSetNoiEnvVol1                                      
-0     000838eb  _actSetNoiEnvVol10                                     
-0     000838ef  _actSetNoiEnvVol11                                     
-0     000838f3  _actSetNoiEnvVol12                                     
-0     000838f7  _actSetNoiEnvVol13                                     
-0     000838fb  _actSetNoiEnvVol14                                     
-0     000838ff  _actSetNoiEnvVol15                                     
-0     000838cb  _actSetNoiEnvVol2                                      
-0     000838cf  _actSetNoiEnvVol3                                      
-0     000838d3  _actSetNoiEnvVol4                                      
-0     000838d7  _actSetNoiEnvVol5                                      
-0     000838db  _actSetNoiEnvVol6                                      
-0     000838df  _actSetNoiEnvVol7                                      
-0     000838e3  _actSetNoiEnvVol8                                      
-0     000838e7  _actSetNoiEnvVol9                                      
-0     000838bb  _actSetNoiEnvVolBack                                   
-0     00083723  _actSetNoiMode                                         
-0     000837eb  _actSetNoiMode0                                        
-0     000837ef  _actSetNoiMode1                                        
-0     000837e3  _actSetNoiModeBack                                     
-0     000836db  _actSetPu1Back                                         
-0     000836e3  _actSetPu1Duty                                         
-0     0008373b  _actSetPu1Duty0                                        
-0     0008373f  _actSetPu1Duty1                                        
-0     00083743  _actSetPu1Duty2                                        
-0     00083747  _actSetPu1Duty3                                        
-0     00083733  _actSetPu1DutyBack                                     
-0     000836eb  _actSetPu1Env                                          
-0     0008374b  _actSetPu1EnvBack                                      
-0     00083853  _actSetPu1EnvConstBack                                 
-0     0008385f  _actSetPu1EnvConstSaw                                  
-0     0008385b  _actSetPu1EnvConstUse                                  
-0     0008375b  _actSetPu1EnvMode                                      
-0     00083753  _actSetPu1EnvVol                                       
-0     00083813  _actSetPu1EnvVol0                                      
-0     00083817  _actSetPu1EnvVol1                                      
-0     0008383b  _actSetPu1EnvVol10                                     
-0     0008383f  _actSetPu1EnvVol11                                     
-0     00083843  _actSetPu1EnvVol12                                     
-0     00083847  _actSetPu1EnvVol13                                     
-0     0008384b  _actSetPu1EnvVol14                                     
-0     0008384f  _actSetPu1EnvVol15                                     
-0     0008381b  _actSetPu1EnvVol2                                      
-0     0008381f  _actSetPu1EnvVol3                                      
-0     00083823  _actSetPu1EnvVol4                                      
-0     00083827  _actSetPu1EnvVol5                                      
-0     0008382b  _actSetPu1EnvVol6                                      
-0     0008382f  _actSetPu1EnvVol7                                      
-0     00083833  _actSetPu1EnvVol8                                      
-0     00083837  _actSetPu1EnvVol9                                      
-0     0008380b  _actSetPu1EnvVolBack                                   
-0     000836f3  _actSetPu1Swe                                          
-0     00083763  _actSetPu1SweBack                                      
-0     0008376b  _actSetPu1SweEnable                                    
-0     00083913  _actSetPu1SweEnabledBack                               
-0     0008391f  _actSetPu1SweEnabledDis                                
-0     0008391b  _actSetPu1SweEnabledEn                                 
-0     0008377b  _actSetPu1SweNegate                                    
-0     0008394b  _actSetPu1SweNegateBack                                
-0     00083953  _actSetPu1SweNegateNo                                  
-0     00083957  _actSetPu1SweNegateYes                                 
-0     00083773  _actSetPu1SwePeriod                                    
-0     0008392b  _actSetPu1SwePeriod0                                   
-0     0008392f  _actSetPu1SwePeriod1                                   
-0     00083933  _actSetPu1SwePeriod2                                   
-0     00083937  _actSetPu1SwePeriod3                                   
-0     0008393b  _actSetPu1SwePeriod4                                   
-0     0008393f  _actSetPu1SwePeriod5                                   
-0     00083943  _actSetPu1SwePeriod6                                   
-0     00083947  _actSetPu1SwePeriod7                                   
-0     00083923  _actSetPu1SwePeriodBack                                
-0     00083783  _actSetPu1SweShift                                     
-0     00083963  _actSetPu1SweShift0                                    
-0     00083967  _actSetPu1SweShift1                                    
-0     0008396b  _actSetPu1SweShift2                                    
-0     0008396f  _actSetPu1SweShift3                                    
-0     00083973  _actSetPu1SweShift4                                    
-0     00083977  _actSetPu1SweShift5                                    
-0     0008397b  _actSetPu1SweShift6                                    
-0     0008397f  _actSetPu1SweShift7                                    
-0     0008395b  _actSetPu1SweShiftBack                                 
-0     000836fb  _actSetPu2Back                                         
-0     00083703  _actSetPu2Duty                                         
-0     00083793  _actSetPu2Duty0                                        
-0     00083797  _actSetPu2Duty1                                        
-0     0008379b  _actSetPu2Duty2                                        
-0     0008379f  _actSetPu2Duty3                                        
-0     0008378b  _actSetPu2DutyBack                                     
-0     0008370b  _actSetPu2Env                                          
-0     000837a3  _actSetPu2EnvBack                                      
-0     000838ab  _actSetPu2EnvConstBack                                 
-0     000838b7  _actSetPu2EnvConstSaw                                  
-0     000838b3  _actSetPu2EnvConstUse                                  
-0     000837b3  _actSetPu2EnvMode                                      
-0     000837ab  _actSetPu2EnvVol                                       
-0     0008386b  _actSetPu2EnvVol0                                      
-0     0008386f  _actSetPu2EnvVol1                                      
-0     00083893  _actSetPu2EnvVol10                                     
-0     00083897  _actSetPu2EnvVol11                                     
-0     0008389b  _actSetPu2EnvVol12                                     
-0     0008389f  _actSetPu2EnvVol13                                     
-0     000838a3  _actSetPu2EnvVol14                                     
-0     000838a7  _actSetPu2EnvVol15                                     
-0     00083873  _actSetPu2EnvVol2                                      
-0     00083877  _actSetPu2EnvVol3                                      
-0     0008387b  _actSetPu2EnvVol4                                      
-0     0008387f  _actSetPu2EnvVol5                                      
-0     00083883  _actSetPu2EnvVol6                                      
-0     00083887  _actSetPu2EnvVol7                                      
-0     0008388b  _actSetPu2EnvVol8                                      
-0     0008388f  _actSetPu2EnvVol9                                      
-0     00083863  _actSetPu2EnvVolBack                                   
-0     00083713  _actSetPu2Swe                                          
-0     000837bb  _actSetPu2SweBack                                      
-0     000837c3  _actSetPu2SweEnable                                    
-0     00083983  _actSetPu2SweEnabledBack                               
-0     0008398f  _actSetPu2SweEnabledDis                                
-0     0008398b  _actSetPu2SweEnabledEn                                 
-0     000837d3  _actSetPu2SweNegate                                    
-0     000839bb  _actSetPu2SweNegateBack                                
-0     000839c3  _actSetPu2SweNegateNo                                  
-0     000839c7  _actSetPu2SweNegateYes                                 
-0     000837cb  _actSetPu2SwePeriod                                    
-0     0008399b  _actSetPu2SwePeriod0                                   
-0     0008399f  _actSetPu2SwePeriod1                                   
-0     000839a3  _actSetPu2SwePeriod2                                   
-0     000839a7  _actSetPu2SwePeriod3                                   
-0     000839ab  _actSetPu2SwePeriod4                                   
-0     000839af  _actSetPu2SwePeriod5                                   
-0     000839b3  _actSetPu2SwePeriod6                                   
-0     000839b7  _actSetPu2SwePeriod7                                   
-0     00083993  _actSetPu2SwePeriodBack                                
-0     000837db  _actSetPu2SweShift                                     
-0     000839d3  _actSetPu2SweShift0                                    
-0     000839d7  _actSetPu2SweShift1                                    
-0     000839db  _actSetPu2SweShift2                                    
-0     000839df  _actSetPu2SweShift3                                    
-0     000839e3  _actSetPu2SweShift4                                    
-0     000839e7  _actSetPu2SweShift5                                    
-0     000839eb  _actSetPu2SweShift6                                    
-0     000839ef  _actSetPu2SweShift7                                    
-0     000839cb  _actSetPu2SweShiftBack                                 
-0     00083643  _actTriangle                                           
-0     0008368b  _actTriangleBack                                       
-0     00083693  _actTriangleRecord                                     
-0     0008369b  _actTriangleReset                                      
-0     00083f8f  _c_int00                                               
+0     00083ffc  __system_post_cinit                                    
+0     00083ffa  __system_pre_init                                      
+1     0000a8fe  __unlock                                               
+0     00084e8b  _aaudpath                                              
+0     00084ea9  _abort                                                 
+0     0008374c  _actFile                                               
+0     0008375c  _actFileBack                                           
+0     00083754  _actLoop                                               
+0     00083764  _actLoopBack                                           
+0     0008376c  _actLoopPlay                                           
+0     0008377c  _actLoopPlayBack                                       
+0     000837a4  _actNoise                                              
+0     000837f8  _actNoiseBack                                          
+0     00083800  _actNoiseRecord                                        
+0     00083810  _actNoiseReset                                         
+0     00083808  _actNoiseSettings                                      
+0     0008378c  _actPulse1                                             
+0     000837ac  _actPulse1Back                                         
+0     000837b4  _actPulse1Record                                       
+0     000837c4  _actPulse1Reset                                        
+0     000837bc  _actPulse1Settings                                     
+0     00083794  _actPulse2                                             
+0     000837c8  _actPulse2Back                                         
+0     000837d0  _actPulse2Record                                       
+0     000837e0  _actPulse2Reset                                        
+0     000837d8  _actPulse2Settings                                     
+0     0008382c  _actRecNoiBack                                         
+0     00083814  _actRecPu1Back                                         
+0     0008381c  _actRecPu2Back                                         
+0     00083824  _actRecTriBack                                         
+0     00083774  _actRecord                                             
+0     00083784  _actRecordBack                                         
+0     00083874  _actSetNoiBack                                         
+0     00083884  _actSetNoiEnv                                          
+0     0008394c  _actSetNoiEnvBack                                      
+0     00083a5c  _actSetNoiEnvConstBack                                 
+0     00083a68  _actSetNoiEnvConstSaw                                  
+0     00083a64  _actSetNoiEnvConstUse                                  
+0     0008395c  _actSetNoiEnvMode                                      
+0     00083954  _actSetNoiEnvVol                                       
+0     00083a1c  _actSetNoiEnvVol0                                      
+0     00083a20  _actSetNoiEnvVol1                                      
+0     00083a44  _actSetNoiEnvVol10                                     
+0     00083a48  _actSetNoiEnvVol11                                     
+0     00083a4c  _actSetNoiEnvVol12                                     
+0     00083a50  _actSetNoiEnvVol13                                     
+0     00083a54  _actSetNoiEnvVol14                                     
+0     00083a58  _actSetNoiEnvVol15                                     
+0     00083a24  _actSetNoiEnvVol2                                      
+0     00083a28  _actSetNoiEnvVol3                                      
+0     00083a2c  _actSetNoiEnvVol4                                      
+0     00083a30  _actSetNoiEnvVol5                                      
+0     00083a34  _actSetNoiEnvVol6                                      
+0     00083a38  _actSetNoiEnvVol7                                      
+0     00083a3c  _actSetNoiEnvVol8                                      
+0     00083a40  _actSetNoiEnvVol9                                      
+0     00083a14  _actSetNoiEnvVolBack                                   
+0     0008387c  _actSetNoiMode                                         
+0     00083944  _actSetNoiMode0                                        
+0     00083948  _actSetNoiMode1                                        
+0     0008393c  _actSetNoiModeBack                                     
+0     00083834  _actSetPu1Back                                         
+0     0008383c  _actSetPu1Duty                                         
+0     00083894  _actSetPu1Duty0                                        
+0     00083898  _actSetPu1Duty1                                        
+0     0008389c  _actSetPu1Duty2                                        
+0     000838a0  _actSetPu1Duty3                                        
+0     0008388c  _actSetPu1DutyBack                                     
+0     00083844  _actSetPu1Env                                          
+0     000838a4  _actSetPu1EnvBack                                      
+0     000839ac  _actSetPu1EnvConstBack                                 
+0     000839b8  _actSetPu1EnvConstSaw                                  
+0     000839b4  _actSetPu1EnvConstUse                                  
+0     000838b4  _actSetPu1EnvMode                                      
+0     000838ac  _actSetPu1EnvVol                                       
+0     0008396c  _actSetPu1EnvVol0                                      
+0     00083970  _actSetPu1EnvVol1                                      
+0     00083994  _actSetPu1EnvVol10                                     
+0     00083998  _actSetPu1EnvVol11                                     
+0     0008399c  _actSetPu1EnvVol12                                     
+0     000839a0  _actSetPu1EnvVol13                                     
+0     000839a4  _actSetPu1EnvVol14                                     
+0     000839a8  _actSetPu1EnvVol15                                     
+0     00083974  _actSetPu1EnvVol2                                      
+0     00083978  _actSetPu1EnvVol3                                      
+0     0008397c  _actSetPu1EnvVol4                                      
+0     00083980  _actSetPu1EnvVol5                                      
+0     00083984  _actSetPu1EnvVol6                                      
+0     00083988  _actSetPu1EnvVol7                                      
+0     0008398c  _actSetPu1EnvVol8                                      
+0     00083990  _actSetPu1EnvVol9                                      
+0     00083964  _actSetPu1EnvVolBack                                   
+0     0008384c  _actSetPu1Swe                                          
+0     000838bc  _actSetPu1SweBack                                      
+0     000838c4  _actSetPu1SweEnable                                    
+0     00083a6c  _actSetPu1SweEnabledBack                               
+0     00083a78  _actSetPu1SweEnabledDis                                
+0     00083a74  _actSetPu1SweEnabledEn                                 
+0     000838d4  _actSetPu1SweNegate                                    
+0     00083aa4  _actSetPu1SweNegateBack                                
+0     00083aac  _actSetPu1SweNegateNo                                  
+0     00083ab0  _actSetPu1SweNegateYes                                 
+0     000838cc  _actSetPu1SwePeriod                                    
+0     00083a84  _actSetPu1SwePeriod0                                   
+0     00083a88  _actSetPu1SwePeriod1                                   
+0     00083a8c  _actSetPu1SwePeriod2                                   
+0     00083a90  _actSetPu1SwePeriod3                                   
+0     00083a94  _actSetPu1SwePeriod4                                   
+0     00083a98  _actSetPu1SwePeriod5                                   
+0     00083a9c  _actSetPu1SwePeriod6                                   
+0     00083aa0  _actSetPu1SwePeriod7                                   
+0     00083a7c  _actSetPu1SwePeriodBack                                
+0     000838dc  _actSetPu1SweShift                                     
+0     00083abc  _actSetPu1SweShift0                                    
+0     00083ac0  _actSetPu1SweShift1                                    
+0     00083ac4  _actSetPu1SweShift2                                    
+0     00083ac8  _actSetPu1SweShift3                                    
+0     00083acc  _actSetPu1SweShift4                                    
+0     00083ad0  _actSetPu1SweShift5                                    
+0     00083ad4  _actSetPu1SweShift6                                    
+0     00083ad8  _actSetPu1SweShift7                                    
+0     00083ab4  _actSetPu1SweShiftBack                                 
+0     00083854  _actSetPu2Back                                         
+0     0008385c  _actSetPu2Duty                                         
+0     000838ec  _actSetPu2Duty0                                        
+0     000838f0  _actSetPu2Duty1                                        
+0     000838f4  _actSetPu2Duty2                                        
+0     000838f8  _actSetPu2Duty3                                        
+0     000838e4  _actSetPu2DutyBack                                     
+0     00083864  _actSetPu2Env                                          
+0     000838fc  _actSetPu2EnvBack                                      
+0     00083a04  _actSetPu2EnvConstBack                                 
+0     00083a10  _actSetPu2EnvConstSaw                                  
+0     00083a0c  _actSetPu2EnvConstUse                                  
+0     0008390c  _actSetPu2EnvMode                                      
+0     00083904  _actSetPu2EnvVol                                       
+0     000839c4  _actSetPu2EnvVol0                                      
+0     000839c8  _actSetPu2EnvVol1                                      
+0     000839ec  _actSetPu2EnvVol10                                     
+0     000839f0  _actSetPu2EnvVol11                                     
+0     000839f4  _actSetPu2EnvVol12                                     
+0     000839f8  _actSetPu2EnvVol13                                     
+0     000839fc  _actSetPu2EnvVol14                                     
+0     00083a00  _actSetPu2EnvVol15                                     
+0     000839cc  _actSetPu2EnvVol2                                      
+0     000839d0  _actSetPu2EnvVol3                                      
+0     000839d4  _actSetPu2EnvVol4                                      
+0     000839d8  _actSetPu2EnvVol5                                      
+0     000839dc  _actSetPu2EnvVol6                                      
+0     000839e0  _actSetPu2EnvVol7                                      
+0     000839e4  _actSetPu2EnvVol8                                      
+0     000839e8  _actSetPu2EnvVol9                                      
+0     000839bc  _actSetPu2EnvVolBack                                   
+0     0008386c  _actSetPu2Swe                                          
+0     00083914  _actSetPu2SweBack                                      
+0     0008391c  _actSetPu2SweEnable                                    
+0     00083adc  _actSetPu2SweEnabledBack                               
+0     00083ae8  _actSetPu2SweEnabledDis                                
+0     00083ae4  _actSetPu2SweEnabledEn                                 
+0     0008392c  _actSetPu2SweNegate                                    
+0     00083b14  _actSetPu2SweNegateBack                                
+0     00083b1c  _actSetPu2SweNegateNo                                  
+0     00083b20  _actSetPu2SweNegateYes                                 
+0     00083924  _actSetPu2SwePeriod                                    
+0     00083af4  _actSetPu2SwePeriod0                                   
+0     00083af8  _actSetPu2SwePeriod1                                   
+0     00083afc  _actSetPu2SwePeriod2                                   
+0     00083b00  _actSetPu2SwePeriod3                                   
+0     00083b04  _actSetPu2SwePeriod4                                   
+0     00083b08  _actSetPu2SwePeriod5                                   
+0     00083b0c  _actSetPu2SwePeriod6                                   
+0     00083b10  _actSetPu2SwePeriod7                                   
+0     00083aec  _actSetPu2SwePeriodBack                                
+0     00083934  _actSetPu2SweShift                                     
+0     00083b2c  _actSetPu2SweShift0                                    
+0     00083b30  _actSetPu2SweShift1                                    
+0     00083b34  _actSetPu2SweShift2                                    
+0     00083b38  _actSetPu2SweShift3                                    
+0     00083b3c  _actSetPu2SweShift4                                    
+0     00083b40  _actSetPu2SweShift5                                    
+0     00083b44  _actSetPu2SweShift6                                    
+0     00083b48  _actSetPu2SweShift7                                    
+0     00083b24  _actSetPu2SweShiftBack                                 
+0     0008379c  _actTriangle                                           
+0     000837e4  _actTriangleBack                                       
+0     000837ec  _actTriangleRecord                                     
+0     000837f4  _actTriangleReset                                      
+0     00084dbc  _c_int00                                               
 0     00082ea8  _calcSweepTarget                                       
 0     000a051d  _clearCommand                                          
 0     00084b7c  _clkg_delay_loop                                       
@@ -1600,86 +1599,87 @@ abs   ffffffff  ___text__
 0     00082ff3  _clockPulse                                            
 0     00082f08  _clockSweep                                            
 0     00083073  _clockTriangle                                         
-0     00084e4e  _copy_in                                               
-1     0000a806  _cyclesToProcess                                       
+0     00084ed2  _copy_in                                               
+1     0000a8f2  _cyclesToProcess                                       
 0     00084b66  _delay_loop                                            
-1     0000aab4  _deviceOpen                                            
-0     00084e1f  _digact                                                
-0     00084e0a  _digaudiopath                                          
-0     000839f3  _displayGuiState                                       
-1     0000a800  _even                                                  
-0     00084e27  _exit                                                  
-0     00084de6  _fullpowerup                                           
+1     0000a97e  _deviceOpen                                            
+0     00084ea3  _digact                                                
+0     00084e8e  _digaudiopath                                          
+0     0008359c  _displayGuiState                                       
+1     0000a8ec  _even                                                  
+0     00084eab  _exit                                                  
+0     00084e6a  _fullpowerup                                           
 1     0003fc00  _g_asIPCCPU1toCPU2Buffers                              
 0     0003f800  _g_asIPCCPU2toCPU1Buffers                              
 1     0003fc84  _g_usGetReadIndexes                                    
 0     0003f880  _g_usGetWriteIndexes                                   
 0     0003f884  _g_usPutReadIndexes                                    
 1     0003fc80  _g_usPutWriteIndexes                                   
-0     000835ba  _gotoState                                             
-1     0000a880  _gui                                                   
-1     0000f900  _guiFile                                               
-1     0000f540  _guiLoop                                               
-1     0000f680  _guiLoopPlay                                           
-1     0000f7c0  _guiMain                                               
-1     0000f040  _guiNoise                                              
-1     00010940  _guiPulse1                                             
-1     0000fa40  _guiPulse2                                             
-1     0000fb80  _guiRecNoi                                             
-1     0000ec80  _guiRecPu1                                             
-1     0000edc0  _guiRecPu2                                             
-1     0000f400  _guiRecTri                                             
-1     0000fcc0  _guiRecord                                             
-1     00010a80  _guiSetNoi                                             
-1     0000ff40  _guiSetNoiEnv                                          
-1     0000e280  _guiSetNoiEnvConst                                     
-1     0000e500  _guiSetNoiEnvVol                                       
-1     0000fe00  _guiSetNoiMode                                         
-1     0000f180  _guiSetPu1                                             
-1     000106c0  _guiSetPu1Duty                                         
-1     00010800  _guiSetPu1Env                                          
-1     00010d00  _guiSetPu1EnvConst                                     
-1     00010580  _guiSetPu1EnvVol                                       
-1     00010e40  _guiSetPu1Swe                                          
-1     0000e3c0  _guiSetPu1SweEnabled                                   
-1     0000e140  _guiSetPu1SweNegate                                    
-1     0000e000  _guiSetPu1SwePeriod                                    
-1     0000eb40  _guiSetPu1SweShift                                     
-1     0000f2c0  _guiSetPu2                                             
-1     00010bc0  _guiSetPu2Duty                                         
-1     00010080  _guiSetPu2Env                                          
-1     00010440  _guiSetPu2EnvConst                                     
-1     00010300  _guiSetPu2EnvVol                                       
-1     000101c0  _guiSetPu2Swe                                          
-1     0000e8c0  _guiSetPu2SweEnabled                                   
-1     0000e640  _guiSetPu2SweNegate                                    
-1     0000ea00  _guiSetPu2SwePeriod                                    
-1     0000e780  _guiSetPu2SweShift                                     
-1     0000ef00  _guiTriangle                                           
+0     00083713  _gotoState                                             
+0     000a9a40  _guiFile                                               
+0     000a9cc0  _guiLoop                                               
+0     000a9f40  _guiLoopPlay                                           
+0     000a9b80  _guiMain                                               
+0     000a9900  _guiNoise                                              
+0     000a9540  _guiPulse1                                             
+0     000a9400  _guiPulse2                                             
+0     000aa800  _guiRecNoi                                             
+0     000a97c0  _guiRecPu1                                             
+0     000aa080  _guiRecPu2                                             
+0     000aa940  _guiRecTri                                             
+0     000a9e00  _guiRecord                                             
+0     000aabc0  _guiSetNoi                                             
+0     000a88c0  _guiSetNoiEnv                                          
+0     000a9040  _guiSetNoiEnvConst                                     
+0     000a8280  _guiSetNoiEnvVol                                       
+0     000a8500  _guiSetNoiMode                                         
+0     000aaa80  _guiSetPu1                                             
+0     000aa300  _guiSetPu1Duty                                         
+0     000aa1c0  _guiSetPu1Env                                          
+0     000a8140  _guiSetPu1EnvConst                                     
+0     000a8780  _guiSetPu1EnvVol                                       
+0     000aa440  _guiSetPu1Swe                                          
+0     000a8f00  _guiSetPu1SweEnabled                                   
+0     000a9180  _guiSetPu1SweNegate                                    
+0     000a92c0  _guiSetPu1SwePeriod                                    
+0     000a8b40  _guiSetPu1SweShift                                     
+0     000aad00  _guiSetPu2                                             
+0     000aa6c0  _guiSetPu2Duty                                         
+0     000aa580  _guiSetPu2Env                                          
+0     000a83c0  _guiSetPu2EnvConst                                     
+0     000a8000  _guiSetPu2EnvVol                                       
+0     000a8640  _guiSetPu2Swe                                          
+0     000a8a00  _guiSetPu2SweEnabled                                   
+0     000a8c80  _guiSetPu2SweNegate                                    
+0     000a8dc0  _guiSetPu2SwePeriod                                    
+0     000aae40  _guiSetPu2SweShift                                     
+0     000a9680  _guiTriangle                                           
 0     00082f5f  _halfClock                                             
-1     0000a808  _index                                                 
+1     0000a8f4  _index                                                 
 0     00083573  _initApu                                               
 0     000a0529  _initCommands                                          
-0     00083fe5  _init_io_gpio                                          
+0     00083700  _initGui                                               
+0     00083597  _initGuiGpio                                           
+0     00084f35  _init_io_gpio                                          
 0     00090000  _intro                                                 
-1     0000aa00  _lengthTable                                           
-0     00084df8  _lhp_volctl                                            
-0     00084dec  _linput_volctl                                         
-0     00083a78  _main                                                  
-0     00084d8e  _mcBspRx                                               
-0     00084e94  _memcpy                                                
+1     0000a840  _lengthTable                                           
+0     00084e7c  _lhp_volctl                                            
+0     00084e70  _linput_volctl                                         
+0     00083eb6  _main                                                  
+0     00084e12  _mcBspRx                                               
+0     00084f18  _memcpy                                                
 0     00083112  _mixSample                                             
-1     0000a9c0  _noisePeriodTableNtsc                                  
-0     00084e04  _nomicaaudpath                                         
-0     00084de9  _nomicpowerup                                          
+1     0000a800  _noisePeriodTableNtsc                                  
+0     00084e88  _nomicaaudpath                                         
+0     00084e6d  _nomicpowerup                                          
 0     00082e79  _pickEnvelopeOutput                                    
 0     00083173  _processCycles                                         
-1     0000a9d0  _pulseSteps                                            
+1     0000a810  _pulseSteps                                            
 0     00082f4a  _quarterClock                                          
-0     00084e22  _reset                                                 
-0     00084dfe  _rhp_volctl                                            
-0     00084df2  _rinput_volctl                                         
-1     0000a804  _sample                                                
+0     00084ea6  _reset                                                 
+0     00084e82  _rhp_volctl                                            
+0     00084e76  _rinput_volctl                                         
+1     0000a8f0  _sample                                                
 0     00083446  _setEnableChannels                                     
 0     00083479  _setFrameCounterMode                                   
 0     00082e54  _setLengthCounter                                      
@@ -1710,18 +1710,19 @@ abs   ffffffff  ___text__
 0     00083376  _setTriangleLinearCounterParamsAndLengthCounterHalt    
 0     0008339b  _setTrianglePeriod                                     
 0     000833c8  _setTrianglePeriodLo                                   
-0     00084d7c  _setup_lcd                                             
+0     00083fdc  _setup_lcd                                             
 0     000a052e  _shiftCommand                                          
-0     00084de3  _softpowerdown                                         
-0     00084d19  _strlen                                                
-1     0000a9ba  _tempSensor_scaleFactor                                
-1     0000a9b8  _tempSensor_tempOffset                                 
-1     0000a9bc  _tempSensor_tempSlope                                  
-1     0000aa20  _triangleSteps                                         
-1     0000a802  _wait                                                  
+0     00084e67  _softpowerdown                                         
+0     00083f79  _strlen                                                
+1     0000a8f8  _tempSensor_scaleFactor                                
+1     0000a8f6  _tempSensor_tempOffset                                 
+1     0000a8fa  _tempSensor_tempSlope                                  
+1     0000a860  _triangleSteps                                         
+0     00083621  _updateGuiState                                        
+1     0000a8ee  _wait                                                  
 0     00083483  _writeRegister                                         
-0     00084d24  _write_commands                                        
-0     00084d4f  _write_string                                          
+0     00083f84  _write_commands                                        
+0     00083faf  _write_string                                          
 abs   ffffffff  binit                                                  
 0     00082000  cinit                                                  
 0     00080000  code_start                                             
@@ -1795,216 +1796,224 @@ page  address   name
 0     00083479  _setFrameCounterMode                                   
 0     00083483  _writeRegister                                         
 0     00083573  _initApu                                               
-0     000835ba  _gotoState                                             
-0     000835f3  _actFile                                               
-0     000835fb  _actLoop                                               
-0     00083603  _actFileBack                                           
-0     0008360b  _actLoopBack                                           
-0     00083613  _actLoopPlay                                           
-0     0008361b  _actRecord                                             
-0     00083623  _actLoopPlayBack                                       
-0     0008362b  _actRecordBack                                         
-0     00083633  _actPulse1                                             
-0     0008363b  _actPulse2                                             
-0     00083643  _actTriangle                                           
-0     0008364b  _actNoise                                              
-0     00083653  _actPulse1Back                                         
-0     0008365b  _actPulse1Record                                       
-0     00083663  _actPulse1Settings                                     
-0     0008366b  _actPulse1Reset                                        
-0     0008366f  _actPulse2Back                                         
-0     00083677  _actPulse2Record                                       
-0     0008367f  _actPulse2Settings                                     
-0     00083687  _actPulse2Reset                                        
-0     0008368b  _actTriangleBack                                       
-0     00083693  _actTriangleRecord                                     
-0     0008369b  _actTriangleReset                                      
-0     0008369f  _actNoiseBack                                          
-0     000836a7  _actNoiseRecord                                        
-0     000836af  _actNoiseSettings                                      
-0     000836b7  _actNoiseReset                                         
-0     000836bb  _actRecPu1Back                                         
-0     000836c3  _actRecPu2Back                                         
-0     000836cb  _actRecTriBack                                         
-0     000836d3  _actRecNoiBack                                         
-0     000836db  _actSetPu1Back                                         
-0     000836e3  _actSetPu1Duty                                         
-0     000836eb  _actSetPu1Env                                          
-0     000836f3  _actSetPu1Swe                                          
-0     000836fb  _actSetPu2Back                                         
-0     00083703  _actSetPu2Duty                                         
-0     0008370b  _actSetPu2Env                                          
-0     00083713  _actSetPu2Swe                                          
-0     0008371b  _actSetNoiBack                                         
-0     00083723  _actSetNoiMode                                         
-0     0008372b  _actSetNoiEnv                                          
-0     00083733  _actSetPu1DutyBack                                     
-0     0008373b  _actSetPu1Duty0                                        
-0     0008373f  _actSetPu1Duty1                                        
-0     00083743  _actSetPu1Duty2                                        
-0     00083747  _actSetPu1Duty3                                        
-0     0008374b  _actSetPu1EnvBack                                      
-0     00083753  _actSetPu1EnvVol                                       
-0     0008375b  _actSetPu1EnvMode                                      
-0     00083763  _actSetPu1SweBack                                      
-0     0008376b  _actSetPu1SweEnable                                    
-0     00083773  _actSetPu1SwePeriod                                    
-0     0008377b  _actSetPu1SweNegate                                    
-0     00083783  _actSetPu1SweShift                                     
-0     0008378b  _actSetPu2DutyBack                                     
-0     00083793  _actSetPu2Duty0                                        
-0     00083797  _actSetPu2Duty1                                        
-0     0008379b  _actSetPu2Duty2                                        
-0     0008379f  _actSetPu2Duty3                                        
-0     000837a3  _actSetPu2EnvBack                                      
-0     000837ab  _actSetPu2EnvVol                                       
-0     000837b3  _actSetPu2EnvMode                                      
-0     000837bb  _actSetPu2SweBack                                      
-0     000837c3  _actSetPu2SweEnable                                    
-0     000837cb  _actSetPu2SwePeriod                                    
-0     000837d3  _actSetPu2SweNegate                                    
-0     000837db  _actSetPu2SweShift                                     
-0     000837e3  _actSetNoiModeBack                                     
-0     000837eb  _actSetNoiMode0                                        
-0     000837ef  _actSetNoiMode1                                        
-0     000837f3  _actSetNoiEnvBack                                      
-0     000837fb  _actSetNoiEnvVol                                       
-0     00083803  _actSetNoiEnvMode                                      
-0     0008380b  _actSetPu1EnvVolBack                                   
-0     00083813  _actSetPu1EnvVol0                                      
-0     00083817  _actSetPu1EnvVol1                                      
-0     0008381b  _actSetPu1EnvVol2                                      
-0     0008381f  _actSetPu1EnvVol3                                      
-0     00083823  _actSetPu1EnvVol4                                      
-0     00083827  _actSetPu1EnvVol5                                      
-0     0008382b  _actSetPu1EnvVol6                                      
-0     0008382f  _actSetPu1EnvVol7                                      
-0     00083833  _actSetPu1EnvVol8                                      
-0     00083837  _actSetPu1EnvVol9                                      
-0     0008383b  _actSetPu1EnvVol10                                     
-0     0008383f  _actSetPu1EnvVol11                                     
-0     00083843  _actSetPu1EnvVol12                                     
-0     00083847  _actSetPu1EnvVol13                                     
-0     0008384b  _actSetPu1EnvVol14                                     
-0     0008384f  _actSetPu1EnvVol15                                     
-0     00083853  _actSetPu1EnvConstBack                                 
-0     0008385b  _actSetPu1EnvConstUse                                  
-0     0008385f  _actSetPu1EnvConstSaw                                  
-0     00083863  _actSetPu2EnvVolBack                                   
-0     0008386b  _actSetPu2EnvVol0                                      
-0     0008386f  _actSetPu2EnvVol1                                      
-0     00083873  _actSetPu2EnvVol2                                      
-0     00083877  _actSetPu2EnvVol3                                      
-0     0008387b  _actSetPu2EnvVol4                                      
-0     0008387f  _actSetPu2EnvVol5                                      
-0     00083883  _actSetPu2EnvVol6                                      
-0     00083887  _actSetPu2EnvVol7                                      
-0     0008388b  _actSetPu2EnvVol8                                      
-0     0008388f  _actSetPu2EnvVol9                                      
-0     00083893  _actSetPu2EnvVol10                                     
-0     00083897  _actSetPu2EnvVol11                                     
-0     0008389b  _actSetPu2EnvVol12                                     
-0     0008389f  _actSetPu2EnvVol13                                     
-0     000838a3  _actSetPu2EnvVol14                                     
-0     000838a7  _actSetPu2EnvVol15                                     
-0     000838ab  _actSetPu2EnvConstBack                                 
-0     000838b3  _actSetPu2EnvConstUse                                  
-0     000838b7  _actSetPu2EnvConstSaw                                  
-0     000838bb  _actSetNoiEnvVolBack                                   
-0     000838c3  _actSetNoiEnvVol0                                      
-0     000838c7  _actSetNoiEnvVol1                                      
-0     000838cb  _actSetNoiEnvVol2                                      
-0     000838cf  _actSetNoiEnvVol3                                      
-0     000838d3  _actSetNoiEnvVol4                                      
-0     000838d7  _actSetNoiEnvVol5                                      
-0     000838db  _actSetNoiEnvVol6                                      
-0     000838df  _actSetNoiEnvVol7                                      
-0     000838e3  _actSetNoiEnvVol8                                      
-0     000838e7  _actSetNoiEnvVol9                                      
-0     000838eb  _actSetNoiEnvVol10                                     
-0     000838ef  _actSetNoiEnvVol11                                     
-0     000838f3  _actSetNoiEnvVol12                                     
-0     000838f7  _actSetNoiEnvVol13                                     
-0     000838fb  _actSetNoiEnvVol14                                     
-0     000838ff  _actSetNoiEnvVol15                                     
-0     00083903  _actSetNoiEnvConstBack                                 
-0     0008390b  _actSetNoiEnvConstUse                                  
-0     0008390f  _actSetNoiEnvConstSaw                                  
-0     00083913  _actSetPu1SweEnabledBack                               
-0     0008391b  _actSetPu1SweEnabledEn                                 
-0     0008391f  _actSetPu1SweEnabledDis                                
-0     00083923  _actSetPu1SwePeriodBack                                
-0     0008392b  _actSetPu1SwePeriod0                                   
-0     0008392f  _actSetPu1SwePeriod1                                   
-0     00083933  _actSetPu1SwePeriod2                                   
-0     00083937  _actSetPu1SwePeriod3                                   
-0     0008393b  _actSetPu1SwePeriod4                                   
-0     0008393f  _actSetPu1SwePeriod5                                   
-0     00083943  _actSetPu1SwePeriod6                                   
-0     00083947  _actSetPu1SwePeriod7                                   
-0     0008394b  _actSetPu1SweNegateBack                                
-0     00083953  _actSetPu1SweNegateNo                                  
-0     00083957  _actSetPu1SweNegateYes                                 
-0     0008395b  _actSetPu1SweShiftBack                                 
-0     00083963  _actSetPu1SweShift0                                    
-0     00083967  _actSetPu1SweShift1                                    
-0     0008396b  _actSetPu1SweShift2                                    
-0     0008396f  _actSetPu1SweShift3                                    
-0     00083973  _actSetPu1SweShift4                                    
-0     00083977  _actSetPu1SweShift5                                    
-0     0008397b  _actSetPu1SweShift6                                    
-0     0008397f  _actSetPu1SweShift7                                    
-0     00083983  _actSetPu2SweEnabledBack                               
-0     0008398b  _actSetPu2SweEnabledEn                                 
-0     0008398f  _actSetPu2SweEnabledDis                                
-0     00083993  _actSetPu2SwePeriodBack                                
-0     0008399b  _actSetPu2SwePeriod0                                   
-0     0008399f  _actSetPu2SwePeriod1                                   
-0     000839a3  _actSetPu2SwePeriod2                                   
-0     000839a7  _actSetPu2SwePeriod3                                   
-0     000839ab  _actSetPu2SwePeriod4                                   
-0     000839af  _actSetPu2SwePeriod5                                   
-0     000839b3  _actSetPu2SwePeriod6                                   
-0     000839b7  _actSetPu2SwePeriod7                                   
-0     000839bb  _actSetPu2SweNegateBack                                
-0     000839c3  _actSetPu2SweNegateNo                                  
-0     000839c7  _actSetPu2SweNegateYes                                 
-0     000839cb  _actSetPu2SweShiftBack                                 
-0     000839d3  _actSetPu2SweShift0                                    
-0     000839d7  _actSetPu2SweShift1                                    
-0     000839db  _actSetPu2SweShift2                                    
-0     000839df  _actSetPu2SweShift3                                    
-0     000839e3  _actSetPu2SweShift4                                    
-0     000839e7  _actSetPu2SweShift5                                    
-0     000839eb  _actSetPu2SweShift6                                    
-0     000839ef  _actSetPu2SweShift7                                    
-0     000839f3  _displayGuiState                                       
-0     00083a78  _main                                                  
-0     00083ba5  _InitSysCtrl                                           
-0     00083be2  _InitPeripheralClocks                                  
-0     00083c66  _DisablePeripheralClocks                               
-0     00083c7e  _SeizeFlashPump                                        
-0     00083c8d  _ReleaseFlashPump                                      
-0     00083c97  _ServiceDog                                            
-0     00083ca5  _DisableDog                                            
-0     00083cb3  _InitSysPll                                            
-0     00083d79  _InitAuxPll                                            
-0     00083e41  _CsmUnlock                                             
-0     00083e62  _SysIntOsc1Sel                                         
-0     00083e6c  _SysIntOsc2Sel                                         
-0     00083e76  _SysXtalOscSel                                         
-0     00083e82  _AuxIntOsc2Sel                                         
-0     00083e8c  _AuxXtalOscSel                                         
-0     00083e98  _AuxAuxClkSel                                          
-0     00083ea2  _IDLE                                                  
-0     00083eab  _STANDBY                                               
-0     00083eb6  _HALT                                                  
-0     00083ecf  _HIB                                                   
-0     00083f37  _I2C_O2O_Master_Init                                   
-0     00083f5b  _I2C_O2O_SendBytes                                     
-0     00083f8f  _c_int00                                               
-0     00083fe5  _init_io_gpio                                          
-0     00083fff  __system_post_cinit                                    
+0     00083597  _initGuiGpio                                           
+0     0008359c  _displayGuiState                                       
+0     00083621  _updateGuiState                                        
+0     00083700  _initGui                                               
+0     00083713  _gotoState                                             
+0     0008374c  _actFile                                               
+0     00083754  _actLoop                                               
+0     0008375c  _actFileBack                                           
+0     00083764  _actLoopBack                                           
+0     0008376c  _actLoopPlay                                           
+0     00083774  _actRecord                                             
+0     0008377c  _actLoopPlayBack                                       
+0     00083784  _actRecordBack                                         
+0     0008378c  _actPulse1                                             
+0     00083794  _actPulse2                                             
+0     0008379c  _actTriangle                                           
+0     000837a4  _actNoise                                              
+0     000837ac  _actPulse1Back                                         
+0     000837b4  _actPulse1Record                                       
+0     000837bc  _actPulse1Settings                                     
+0     000837c4  _actPulse1Reset                                        
+0     000837c8  _actPulse2Back                                         
+0     000837d0  _actPulse2Record                                       
+0     000837d8  _actPulse2Settings                                     
+0     000837e0  _actPulse2Reset                                        
+0     000837e4  _actTriangleBack                                       
+0     000837ec  _actTriangleRecord                                     
+0     000837f4  _actTriangleReset                                      
+0     000837f8  _actNoiseBack                                          
+0     00083800  _actNoiseRecord                                        
+0     00083808  _actNoiseSettings                                      
+0     00083810  _actNoiseReset                                         
+0     00083814  _actRecPu1Back                                         
+0     0008381c  _actRecPu2Back                                         
+0     00083824  _actRecTriBack                                         
+0     0008382c  _actRecNoiBack                                         
+0     00083834  _actSetPu1Back                                         
+0     0008383c  _actSetPu1Duty                                         
+0     00083844  _actSetPu1Env                                          
+0     0008384c  _actSetPu1Swe                                          
+0     00083854  _actSetPu2Back                                         
+0     0008385c  _actSetPu2Duty                                         
+0     00083864  _actSetPu2Env                                          
+0     0008386c  _actSetPu2Swe                                          
+0     00083874  _actSetNoiBack                                         
+0     0008387c  _actSetNoiMode                                         
+0     00083884  _actSetNoiEnv                                          
+0     0008388c  _actSetPu1DutyBack                                     
+0     00083894  _actSetPu1Duty0                                        
+0     00083898  _actSetPu1Duty1                                        
+0     0008389c  _actSetPu1Duty2                                        
+0     000838a0  _actSetPu1Duty3                                        
+0     000838a4  _actSetPu1EnvBack                                      
+0     000838ac  _actSetPu1EnvVol                                       
+0     000838b4  _actSetPu1EnvMode                                      
+0     000838bc  _actSetPu1SweBack                                      
+0     000838c4  _actSetPu1SweEnable                                    
+0     000838cc  _actSetPu1SwePeriod                                    
+0     000838d4  _actSetPu1SweNegate                                    
+0     000838dc  _actSetPu1SweShift                                     
+0     000838e4  _actSetPu2DutyBack                                     
+0     000838ec  _actSetPu2Duty0                                        
+0     000838f0  _actSetPu2Duty1                                        
+0     000838f4  _actSetPu2Duty2                                        
+0     000838f8  _actSetPu2Duty3                                        
+0     000838fc  _actSetPu2EnvBack                                      
+0     00083904  _actSetPu2EnvVol                                       
+0     0008390c  _actSetPu2EnvMode                                      
+0     00083914  _actSetPu2SweBack                                      
+0     0008391c  _actSetPu2SweEnable                                    
+0     00083924  _actSetPu2SwePeriod                                    
+0     0008392c  _actSetPu2SweNegate                                    
+0     00083934  _actSetPu2SweShift                                     
+0     0008393c  _actSetNoiModeBack                                     
+0     00083944  _actSetNoiMode0                                        
+0     00083948  _actSetNoiMode1                                        
+0     0008394c  _actSetNoiEnvBack                                      
+0     00083954  _actSetNoiEnvVol                                       
+0     0008395c  _actSetNoiEnvMode                                      
+0     00083964  _actSetPu1EnvVolBack                                   
+0     0008396c  _actSetPu1EnvVol0                                      
+0     00083970  _actSetPu1EnvVol1                                      
+0     00083974  _actSetPu1EnvVol2                                      
+0     00083978  _actSetPu1EnvVol3                                      
+0     0008397c  _actSetPu1EnvVol4                                      
+0     00083980  _actSetPu1EnvVol5                                      
+0     00083984  _actSetPu1EnvVol6                                      
+0     00083988  _actSetPu1EnvVol7                                      
+0     0008398c  _actSetPu1EnvVol8                                      
+0     00083990  _actSetPu1EnvVol9                                      
+0     00083994  _actSetPu1EnvVol10                                     
+0     00083998  _actSetPu1EnvVol11                                     
+0     0008399c  _actSetPu1EnvVol12                                     
+0     000839a0  _actSetPu1EnvVol13                                     
+0     000839a4  _actSetPu1EnvVol14                                     
+0     000839a8  _actSetPu1EnvVol15                                     
+0     000839ac  _actSetPu1EnvConstBack                                 
+0     000839b4  _actSetPu1EnvConstUse                                  
+0     000839b8  _actSetPu1EnvConstSaw                                  
+0     000839bc  _actSetPu2EnvVolBack                                   
+0     000839c4  _actSetPu2EnvVol0                                      
+0     000839c8  _actSetPu2EnvVol1                                      
+0     000839cc  _actSetPu2EnvVol2                                      
+0     000839d0  _actSetPu2EnvVol3                                      
+0     000839d4  _actSetPu2EnvVol4                                      
+0     000839d8  _actSetPu2EnvVol5                                      
+0     000839dc  _actSetPu2EnvVol6                                      
+0     000839e0  _actSetPu2EnvVol7                                      
+0     000839e4  _actSetPu2EnvVol8                                      
+0     000839e8  _actSetPu2EnvVol9                                      
+0     000839ec  _actSetPu2EnvVol10                                     
+0     000839f0  _actSetPu2EnvVol11                                     
+0     000839f4  _actSetPu2EnvVol12                                     
+0     000839f8  _actSetPu2EnvVol13                                     
+0     000839fc  _actSetPu2EnvVol14                                     
+0     00083a00  _actSetPu2EnvVol15                                     
+0     00083a04  _actSetPu2EnvConstBack                                 
+0     00083a0c  _actSetPu2EnvConstUse                                  
+0     00083a10  _actSetPu2EnvConstSaw                                  
+0     00083a14  _actSetNoiEnvVolBack                                   
+0     00083a1c  _actSetNoiEnvVol0                                      
+0     00083a20  _actSetNoiEnvVol1                                      
+0     00083a24  _actSetNoiEnvVol2                                      
+0     00083a28  _actSetNoiEnvVol3                                      
+0     00083a2c  _actSetNoiEnvVol4                                      
+0     00083a30  _actSetNoiEnvVol5                                      
+0     00083a34  _actSetNoiEnvVol6                                      
+0     00083a38  _actSetNoiEnvVol7                                      
+0     00083a3c  _actSetNoiEnvVol8                                      
+0     00083a40  _actSetNoiEnvVol9                                      
+0     00083a44  _actSetNoiEnvVol10                                     
+0     00083a48  _actSetNoiEnvVol11                                     
+0     00083a4c  _actSetNoiEnvVol12                                     
+0     00083a50  _actSetNoiEnvVol13                                     
+0     00083a54  _actSetNoiEnvVol14                                     
+0     00083a58  _actSetNoiEnvVol15                                     
+0     00083a5c  _actSetNoiEnvConstBack                                 
+0     00083a64  _actSetNoiEnvConstUse                                  
+0     00083a68  _actSetNoiEnvConstSaw                                  
+0     00083a6c  _actSetPu1SweEnabledBack                               
+0     00083a74  _actSetPu1SweEnabledEn                                 
+0     00083a78  _actSetPu1SweEnabledDis                                
+0     00083a7c  _actSetPu1SwePeriodBack                                
+0     00083a84  _actSetPu1SwePeriod0                                   
+0     00083a88  _actSetPu1SwePeriod1                                   
+0     00083a8c  _actSetPu1SwePeriod2                                   
+0     00083a90  _actSetPu1SwePeriod3                                   
+0     00083a94  _actSetPu1SwePeriod4                                   
+0     00083a98  _actSetPu1SwePeriod5                                   
+0     00083a9c  _actSetPu1SwePeriod6                                   
+0     00083aa0  _actSetPu1SwePeriod7                                   
+0     00083aa4  _actSetPu1SweNegateBack                                
+0     00083aac  _actSetPu1SweNegateNo                                  
+0     00083ab0  _actSetPu1SweNegateYes                                 
+0     00083ab4  _actSetPu1SweShiftBack                                 
+0     00083abc  _actSetPu1SweShift0                                    
+0     00083ac0  _actSetPu1SweShift1                                    
+0     00083ac4  _actSetPu1SweShift2                                    
+0     00083ac8  _actSetPu1SweShift3                                    
+0     00083acc  _actSetPu1SweShift4                                    
+0     00083ad0  _actSetPu1SweShift5                                    
+0     00083ad4  _actSetPu1SweShift6                                    
+0     00083ad8  _actSetPu1SweShift7                                    
+0     00083adc  _actSetPu2SweEnabledBack                               
+0     00083ae4  _actSetPu2SweEnabledEn                                 
+0     00083ae8  _actSetPu2SweEnabledDis                                
+0     00083aec  _actSetPu2SwePeriodBack                                
+0     00083af4  _actSetPu2SwePeriod0                                   
+0     00083af8  _actSetPu2SwePeriod1                                   
+0     00083afc  _actSetPu2SwePeriod2                                   
+0     00083b00  _actSetPu2SwePeriod3                                   
+0     00083b04  _actSetPu2SwePeriod4                                   
+0     00083b08  _actSetPu2SwePeriod5                                   
+0     00083b0c  _actSetPu2SwePeriod6                                   
+0     00083b10  _actSetPu2SwePeriod7                                   
+0     00083b14  _actSetPu2SweNegateBack                                
+0     00083b1c  _actSetPu2SweNegateNo                                  
+0     00083b20  _actSetPu2SweNegateYes                                 
+0     00083b24  _actSetPu2SweShiftBack                                 
+0     00083b2c  _actSetPu2SweShift0                                    
+0     00083b30  _actSetPu2SweShift1                                    
+0     00083b34  _actSetPu2SweShift2                                    
+0     00083b38  _actSetPu2SweShift3                                    
+0     00083b3c  _actSetPu2SweShift4                                    
+0     00083b40  _actSetPu2SweShift5                                    
+0     00083b44  _actSetPu2SweShift6                                    
+0     00083b48  _actSetPu2SweShift7                                    
+0     00083b4c  _InitSysCtrl                                           
+0     00083b89  _InitPeripheralClocks                                  
+0     00083c0d  _DisablePeripheralClocks                               
+0     00083c25  _SeizeFlashPump                                        
+0     00083c34  _ReleaseFlashPump                                      
+0     00083c3e  _ServiceDog                                            
+0     00083c4c  _DisableDog                                            
+0     00083c5a  _InitSysPll                                            
+0     00083d20  _InitAuxPll                                            
+0     00083de8  _CsmUnlock                                             
+0     00083e09  _SysIntOsc1Sel                                         
+0     00083e13  _SysIntOsc2Sel                                         
+0     00083e1d  _SysXtalOscSel                                         
+0     00083e29  _AuxIntOsc2Sel                                         
+0     00083e33  _AuxXtalOscSel                                         
+0     00083e3f  _AuxAuxClkSel                                          
+0     00083e49  _IDLE                                                  
+0     00083e52  _STANDBY                                               
+0     00083e5d  _HALT                                                  
+0     00083e76  _HIB                                                   
+0     00083eb6  _main                                                  
+0     00083f79  _strlen                                                
+0     00083f84  _write_commands                                        
+0     00083faf  _write_string                                          
+0     00083fdc  _setup_lcd                                             
+0     00083fee  __register_unlock                                      
+0     00083ff2  __register_lock                                        
+0     00083ff6  __nop                                                  
+0     00083ff7  _SetDBGIER                                             
+0     00083ffa  __system_pre_init                                      
+0     00083ffc  __system_post_cinit                                    
 0     00084000  _TIMER1_ISR                                            
 0     0008400a  _TIMER2_ISR                                            
 0     00084014  _DATALOG_ISR                                           
@@ -2190,49 +2199,82 @@ page  address   name
 0     00084c7a  _Interrupt_initVectorTable                             
 0     00084c9a  _Interrupt_enable                                      
 0     00084cce  _Interrupt_disable                                     
-0     00084d19  _strlen                                                
-0     00084d24  _write_commands                                        
-0     00084d4f  _write_string                                          
-0     00084d7c  _setup_lcd                                             
-0     00084d8e  _mcBspRx                                               
-0     00084de3  _softpowerdown                                         
-0     00084de6  _fullpowerup                                           
-0     00084de9  _nomicpowerup                                          
-0     00084dec  _linput_volctl                                         
-0     00084df2  _rinput_volctl                                         
-0     00084df8  _lhp_volctl                                            
-0     00084dfe  _rhp_volctl                                            
-0     00084e04  _nomicaaudpath                                         
-0     00084e07  _aaudpath                                              
-0     00084e0a  _digaudiopath                                          
-0     00084e0d  _DSPdigaudinterface                                    
-0     00084e10  _I2Sdigaudinterface                                    
-0     00084e13  _USBsampleratecontrol                                  
-0     00084e19  _CLKsampleratecontrol                                  
-0     00084e1f  _digact                                                
-0     00084e22  _reset                                                 
-0     00084e25  C$$EXIT                                                
-0     00084e25  _abort                                                 
-0     00084e27  _exit                                                  
-0     00084e4e  _copy_in                                               
-0     00084e72  I$$DIV                                                 
-0     00084e83  I$$MOD                                                 
-0     00084e94  _memcpy                                                
-0     00084eb1  __args_main                                            
-0     00084eca  LL$$AND                                                
-0     00084ed2  LL$$OR                                                 
-0     00084eda  LL$$XOR                                                
-0     00084ee2  __register_unlock                                      
-0     00084ee6  __register_lock                                        
-0     00084eea  __nop                                                  
-0     00084eeb  _SetDBGIER                                             
-0     00084eee  __system_pre_init                                      
+0     00084d64  _I2C_O2O_Master_Init                                   
+0     00084d88  _I2C_O2O_SendBytes                                     
+0     00084dbc  _c_int00                                               
+0     00084e12  _mcBspRx                                               
+0     00084e67  _softpowerdown                                         
+0     00084e6a  _fullpowerup                                           
+0     00084e6d  _nomicpowerup                                          
+0     00084e70  _linput_volctl                                         
+0     00084e76  _rinput_volctl                                         
+0     00084e7c  _lhp_volctl                                            
+0     00084e82  _rhp_volctl                                            
+0     00084e88  _nomicaaudpath                                         
+0     00084e8b  _aaudpath                                              
+0     00084e8e  _digaudiopath                                          
+0     00084e91  _DSPdigaudinterface                                    
+0     00084e94  _I2Sdigaudinterface                                    
+0     00084e97  _USBsampleratecontrol                                  
+0     00084e9d  _CLKsampleratecontrol                                  
+0     00084ea3  _digact                                                
+0     00084ea6  _reset                                                 
+0     00084ea9  C$$EXIT                                                
+0     00084ea9  _abort                                                 
+0     00084eab  _exit                                                  
+0     00084ed2  _copy_in                                               
+0     00084ef6  I$$DIV                                                 
+0     00084f07  I$$MOD                                                 
+0     00084f18  _memcpy                                                
+0     00084f35  _init_io_gpio                                          
+0     00084f4f  __args_main                                            
+0     00084f68  LL$$AND                                                
+0     00084f70  LL$$OR                                                 
+0     00084f78  LL$$XOR                                                
 0     00086000  _RamfuncsLoadStart                                     
 0     0008603b  _RamfuncsLoadEnd                                       
 0     00090000  _intro                                                 
 0     000a051d  _clearCommand                                          
 0     000a0529  _initCommands                                          
 0     000a052e  _shiftCommand                                          
+0     000a8000  _guiSetPu2EnvVol                                       
+0     000a8140  _guiSetPu1EnvConst                                     
+0     000a8280  _guiSetNoiEnvVol                                       
+0     000a83c0  _guiSetPu2EnvConst                                     
+0     000a8500  _guiSetNoiMode                                         
+0     000a8640  _guiSetPu2Swe                                          
+0     000a8780  _guiSetPu1EnvVol                                       
+0     000a88c0  _guiSetNoiEnv                                          
+0     000a8a00  _guiSetPu2SweEnabled                                   
+0     000a8b40  _guiSetPu1SweShift                                     
+0     000a8c80  _guiSetPu2SweNegate                                    
+0     000a8dc0  _guiSetPu2SwePeriod                                    
+0     000a8f00  _guiSetPu1SweEnabled                                   
+0     000a9040  _guiSetNoiEnvConst                                     
+0     000a9180  _guiSetPu1SweNegate                                    
+0     000a92c0  _guiSetPu1SwePeriod                                    
+0     000a9400  _guiPulse2                                             
+0     000a9540  _guiPulse1                                             
+0     000a9680  _guiTriangle                                           
+0     000a97c0  _guiRecPu1                                             
+0     000a9900  _guiNoise                                              
+0     000a9a40  _guiFile                                               
+0     000a9b80  _guiMain                                               
+0     000a9cc0  _guiLoop                                               
+0     000a9e00  _guiRecord                                             
+0     000a9f40  _guiLoopPlay                                           
+0     000aa080  _guiRecPu2                                             
+0     000aa1c0  _guiSetPu1Env                                          
+0     000aa300  _guiSetPu1Duty                                         
+0     000aa440  _guiSetPu1Swe                                          
+0     000aa580  _guiSetPu2Env                                          
+0     000aa6c0  _guiSetPu2Duty                                         
+0     000aa800  _guiRecNoi                                             
+0     000aa940  _guiRecTri                                             
+0     000aaa80  _guiSetPu1                                             
+0     000aabc0  _guiSetNoi                                             
+0     000aad00  _guiSetPu2                                             
+0     000aae40  _guiSetPu2SweShift                                     
 1     00000400  __stack                                                
 1     00000600  __STACK_END                                            
 1     00000b00  _AdcaResultRegs                                        
@@ -2306,76 +2348,37 @@ page  address   name
 1     00007a80  _OutputXbarRegs                                        
 1     00007c00  _GpioCtrlRegs                                          
 1     00007f00  _GpioDataRegs                                          
-1     0000a800  _even                                                  
-1     0000a802  _wait                                                  
-1     0000a804  _sample                                                
-1     0000a806  _cyclesToProcess                                       
-1     0000a808  _index                                                 
-1     0000a880  _gui                                                   
-1     0000a9b8  _tempSensor_tempOffset                                 
-1     0000a9ba  _tempSensor_scaleFactor                                
-1     0000a9bc  _tempSensor_tempSlope                                  
-1     0000a9be  __lock                                                 
-1     0000a9c0  _noisePeriodTableNtsc                                  
-1     0000a9d0  _pulseSteps                                            
-1     0000aa00  _lengthTable                                           
-1     0000aa20  _triangleSteps                                         
-1     0000aa94  _CpuTimer1                                             
-1     0000aa9c  _CpuTimer2                                             
-1     0000aaa4  _CpuTimer0                                             
-1     0000aaac  ___TI_enable_exit_profile_output                       
-1     0000aaae  ___TI_cleanup_ptr                                      
-1     0000aab0  ___TI_dtors_ptr                                        
-1     0000aab2  __unlock                                               
-1     0000aab4  _deviceOpen                                            
-1     0000aac0  _SCI                                                   
-1     0000aac4  _MCBSP                                                 
-1     0000aac8  _I2C                                                   
-1     0000aacc  _SDFM                                                  
-1     0000aad2  _EQEP                                                  
-1     0000aada  _SPI                                                   
-1     0000aae2  _ADC                                                   
-1     0000aaec  _ECAP                                                  
-1     0000ab00  _EPWM                                                  
-1     0000ab1a  _TRIP_SEL                                              
-1     0000e000  _guiSetPu1SwePeriod                                    
-1     0000e140  _guiSetPu1SweNegate                                    
-1     0000e280  _guiSetNoiEnvConst                                     
-1     0000e3c0  _guiSetPu1SweEnabled                                   
-1     0000e500  _guiSetNoiEnvVol                                       
-1     0000e640  _guiSetPu2SweNegate                                    
-1     0000e780  _guiSetPu2SweShift                                     
-1     0000e8c0  _guiSetPu2SweEnabled                                   
-1     0000ea00  _guiSetPu2SwePeriod                                    
-1     0000eb40  _guiSetPu1SweShift                                     
-1     0000ec80  _guiRecPu1                                             
-1     0000edc0  _guiRecPu2                                             
-1     0000ef00  _guiTriangle                                           
-1     0000f040  _guiNoise                                              
-1     0000f180  _guiSetPu1                                             
-1     0000f2c0  _guiSetPu2                                             
-1     0000f400  _guiRecTri                                             
-1     0000f540  _guiLoop                                               
-1     0000f680  _guiLoopPlay                                           
-1     0000f7c0  _guiMain                                               
-1     0000f900  _guiFile                                               
-1     0000fa40  _guiPulse2                                             
-1     0000fb80  _guiRecNoi                                             
-1     0000fcc0  _guiRecord                                             
-1     0000fe00  _guiSetNoiMode                                         
-1     0000ff40  _guiSetNoiEnv                                          
-1     00010080  _guiSetPu2Env                                          
-1     000101c0  _guiSetPu2Swe                                          
-1     00010300  _guiSetPu2EnvVol                                       
-1     00010440  _guiSetPu2EnvConst                                     
-1     00010580  _guiSetPu1EnvVol                                       
-1     000106c0  _guiSetPu1Duty                                         
-1     00010800  _guiSetPu1Env                                          
-1     00010940  _guiPulse1                                             
-1     00010a80  _guiSetNoi                                             
-1     00010bc0  _guiSetPu2Duty                                         
-1     00010d00  _guiSetPu1EnvConst                                     
-1     00010e40  _guiSetPu1Swe                                          
+1     0000a800  _noisePeriodTableNtsc                                  
+1     0000a810  _pulseSteps                                            
+1     0000a840  _lengthTable                                           
+1     0000a860  _triangleSteps                                         
+1     0000a8d4  _CpuTimer1                                             
+1     0000a8dc  _CpuTimer2                                             
+1     0000a8e4  _CpuTimer0                                             
+1     0000a8ec  _even                                                  
+1     0000a8ee  _wait                                                  
+1     0000a8f0  _sample                                                
+1     0000a8f2  _cyclesToProcess                                       
+1     0000a8f4  _index                                                 
+1     0000a8f6  _tempSensor_tempOffset                                 
+1     0000a8f8  _tempSensor_scaleFactor                                
+1     0000a8fa  _tempSensor_tempSlope                                  
+1     0000a8fc  __lock                                                 
+1     0000a8fe  __unlock                                               
+1     0000a900  _SCI                                                   
+1     0000a904  _MCBSP                                                 
+1     0000a908  _I2C                                                   
+1     0000a90c  _SDFM                                                  
+1     0000a912  _EQEP                                                  
+1     0000a91a  _SPI                                                   
+1     0000a922  _ADC                                                   
+1     0000a92c  _ECAP                                                  
+1     0000a940  _EPWM                                                  
+1     0000a95a  _TRIP_SEL                                              
+1     0000a978  ___TI_enable_exit_profile_output                       
+1     0000a97a  ___TI_cleanup_ptr                                      
+1     0000a97c  ___TI_dtors_ptr                                        
+1     0000a97e  _deviceOpen                                            
 1     0003fc00  _g_asIPCCPU1toCPU2Buffers                              
 1     0003fc80  _g_usPutWriteIndexes                                   
 1     0003fc84  _g_usGetReadIndexes                                    
@@ -2419,4 +2422,4 @@ abs   ffffffff  binit
 abs   ffffffff  etext                                                  
 abs   ffffffff  pinit                                                  
 
-[685 symbols]
+[687 symbols]
