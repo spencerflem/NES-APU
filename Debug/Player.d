@@ -68,7 +68,6 @@ Player.obj: C:/Users/Stasiu\ Chyczewski/workspace_v8/Lab5/ADC_TIMER_Driverlib/dr
 Player.obj: ../InitAIC23.h
 Player.obj: ../AIC23.h
 Player.obj: ../APU.h
-Player.obj: ../intro.h
 Player.obj: ../Gui.h
 
 ../Player.c: 
@@ -139,5 +138,4 @@ C:/Users/Stasiu\ Chyczewski/workspace_v8/Lab5/ADC_TIMER_Driverlib/driverlib/debu
 ../InitAIC23.h: 
 ../AIC23.h: 
 ../APU.h: 
-../intro.h: 
 ../Gui.h: 

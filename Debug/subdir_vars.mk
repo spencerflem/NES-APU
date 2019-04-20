@@ -15,6 +15,7 @@ C_SRCS += \
 ../InitAIC23.c \
 ../OneToOneI2CDriver.c \
 ../Player.c \
+../intro.c \
 ../io.c \
 ../lcd.c \
 ../sram.c 
@@ -26,6 +27,7 @@ C_DEPS += \
 ./InitAIC23.d \
 ./OneToOneI2CDriver.d \
 ./Player.d \
+./intro.d \
 ./io.d \
 ./lcd.d \
 ./sram.d 
@@ -37,6 +39,7 @@ OBJS += \
 ./InitAIC23.obj \
 ./OneToOneI2CDriver.obj \
 ./Player.obj \
+./intro.obj \
 ./io.obj \
 ./lcd.obj \
 ./sram.obj 
@@ -48,6 +51,7 @@ OBJS__QUOTED += \
 "InitAIC23.obj" \
 "OneToOneI2CDriver.obj" \
 "Player.obj" \
+"intro.obj" \
 "io.obj" \
 "lcd.obj" \
 "sram.obj" 
@@ -59,6 +63,7 @@ C_DEPS__QUOTED += \
 "InitAIC23.d" \
 "OneToOneI2CDriver.d" \
 "Player.d" \
+"intro.d" \
 "io.d" \
 "lcd.d" \
 "sram.d" 
@@ -70,6 +75,7 @@ C_SRCS__QUOTED += \
 "../InitAIC23.c" \
 "../OneToOneI2CDriver.c" \
 "../Player.c" \
+"../intro.c" \
 "../io.c" \
 "../lcd.c" \
 "../sram.c" 

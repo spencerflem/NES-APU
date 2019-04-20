@@ -24,6 +24,16 @@ typedef struct Gui {
     Uint16 downPressed;
     Uint16 selPressed;
     Apu *apu;
+    const char *file;
+    int32 fileLoopIndex;
+    bool playFile;
+    int32 index;
+    Uint32 wait;
+    Uint32 cycles;
+    char *oldBuff;
+    char *newBuff;
+    bool playLoop;
+    int16 recordLoop;
 } Gui;
 
 void initGuiGpio();

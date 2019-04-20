@@ -58,6 +58,7 @@ Gui.obj: C:/ti/controlSUITE/device_support/F2837xD/v210/F2837xD_common/include/F
 Gui.obj: C:/ti/controlSUITE/device_support/F2837xD/v210/F2837xD_common/include/F2837xD_SysCtrl_defines.h
 Gui.obj: C:/ti/controlSUITE/device_support/F2837xD/v210/F2837xD_common/include/F2837xD_Upp_defines.h
 Gui.obj: C:/ti/controlSUITE/device_support/F2837xD/v210/F2837xD_common/include/F2837xD_defaultisr.h
+Gui.obj: ../intro.h
 Gui.obj: ../Gui.h
 Gui.obj: ../apu.h
 Gui.obj: ../lcd.h
@@ -121,6 +122,7 @@ C:/ti/controlSUITE/device_support/F2837xD/v210/F2837xD_common/include/F2837xD_Dm
 C:/ti/controlSUITE/device_support/F2837xD/v210/F2837xD_common/include/F2837xD_SysCtrl_defines.h: 
 C:/ti/controlSUITE/device_support/F2837xD/v210/F2837xD_common/include/F2837xD_Upp_defines.h: 
 C:/ti/controlSUITE/device_support/F2837xD/v210/F2837xD_common/include/F2837xD_defaultisr.h: 
+../intro.h: 
 ../Gui.h: 
 ../apu.h: 
 ../lcd.h: 

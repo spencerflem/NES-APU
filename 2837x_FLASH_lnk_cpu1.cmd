@@ -27,12 +27,13 @@ PAGE 0 :  /* Program Memory */
    //FLASHG           : origin = 0x098000, length = 0x008000	/* on-chip Flash */
    //FLASHH           : origin = 0x0A0000, length = 0x008000	/* on-chip Flash */
    FLASHFGH			: origin = 0x090000, length = 0x018000
-   FLASHI           : origin = 0x0A8000, length = 0x008000	/* on-chip Flash */
-   FLASHJ           : origin = 0x0B0000, length = 0x008000	/* on-chip Flash */
-   FLASHK           : origin = 0x0B8000, length = 0x002000	/* on-chip Flash */
-   FLASHL           : origin = 0x0BA000, length = 0x002000	/* on-chip Flash */
-   FLASHM           : origin = 0x0BC000, length = 0x002000	/* on-chip Flash */
-   FLASHN           : origin = 0x0BE000, length = 0x002000	/* on-chip Flash */   
+   //FLASHI           : origin = 0x0A8000, length = 0x008000	/* on-chip Flash */
+   //FLASHJ           : origin = 0x0B0000, length = 0x008000	/* on-chip Flash */
+   //FLASHK           : origin = 0x0B8000, length = 0x002000	/* on-chip Flash */
+   //FLASHL           : origin = 0x0BA000, length = 0x002000	/* on-chip Flash */
+   //FLASHM           : origin = 0x0BC000, length = 0x002000	/* on-chip Flash */
+   FLASHIJKL		 : origin = 0xA80000, length = 0x016000
+   FLASHMN           : origin = 0x0BC000, length = 0x004000	/* on-chip Flash */
 
 PAGE 1 : /* Data Memory */
          /* Memory (RAM/FLASH) blocks can be moved to PAGE0 for program allocation */
@@ -45,19 +46,20 @@ PAGE 1 : /* Data Memory */
 
    RAMGS0      : origin = 0x00C000, length = 0x001000
    RAMGS1      : origin = 0x00D000, length = 0x001000
-   RAMGS2      : origin = 0x00E000, length = 0x001000
-   RAMGS3      : origin = 0x00F000, length = 0x001000
-   RAMGS4      : origin = 0x010000, length = 0x001000
-   //RAMGS234	   : origin = 0x00E000, length = 0x003000
-   RAMGS5      : origin = 0x011000, length = 0x001000
-   RAMGS6      : origin = 0x012000, length = 0x001000
-   RAMGS7      : origin = 0x013000, length = 0x001000
-   RAMGS8      : origin = 0x014000, length = 0x001000
-   RAMGS9      : origin = 0x015000, length = 0x001000
-   RAMGS10     : origin = 0x016000, length = 0x001000
-   RAMGS11     : origin = 0x017000, length = 0x001000
-   RAMGS12     : origin = 0x018000, length = 0x001000
-   RAMGS13     : origin = 0x019000, length = 0x001000
+   //RAMGS2      : origin = 0x00E000, length = 0x001000
+   //RAMGS3      : origin = 0x00F000, length = 0x001000
+   //RAMGS4      : origin = 0x010000, length = 0x001000
+   //RAMGS5      : origin = 0x011000, length = 0x001000
+   //RAMGS6      : origin = 0x012000, length = 0x001000
+   //RAMGS7      : origin = 0x013000, length = 0x001000
+   PINGLOOP	   : origin = 0x00E000, length = 0x006000
+   //RAMGS8      : origin = 0x014000, length = 0x001000
+   //RAMGS9      : origin = 0x015000, length = 0x001000
+   //RAMGS10     : origin = 0x016000, length = 0x001000
+   //RAMGS11     : origin = 0x017000, length = 0x001000
+   //RAMGS12     : origin = 0x018000, length = 0x001000
+   //RAMGS13     : origin = 0x019000, length = 0x001000
+   PONGLOOP    : origin = 0x014000, length = 0x006000
 
    
    CPU2TOCPU1RAM   : origin = 0x03F800, length = 0x000400
@@ -128,7 +130,10 @@ SECTIONS
         PUTREADIDX :   TYPE = DSECT
     }  
     
-     gui				: > FLASHI, PAGE = 0
+     gui				: > FLASHMN, PAGE = 0
+     song2				: > FLASHIJKL, PAGE = 0
+     pingloop			: > PINGLOOP, PAGE = 1
+     pongloop           : > PONGLOOP, PAGE = 1
 
 }
 

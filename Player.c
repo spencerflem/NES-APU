@@ -4,22 +4,12 @@
 #include "InitAIC23.h"
 #include "AIC23.h"
 #include "APU.h"
-#include "intro.h"
 #include "Gui.h"
-
-// TODO: IMPLEMENT READING WHOLE FILE
-// TODO: IMPLEMENT LOOP
-// TODO: IMPLEMENT SETTINGS
-// TODO: PIANO PLAYER
-// TODO: BATTERY
-// TODO: RECORD DATA STRUCTURE
 
 interrupt void mcBspRx();
 
 volatile bool even;
 volatile float cyclesToProcess = 0;
-int32 index = 0;
-Uint32 wait = 0;
 int32 sample = 0;
 
 int main(void) {
@@ -35,8 +25,6 @@ int main(void) {
     Interrupt_register(INT_MCBSPB_RX, &mcBspRx);
     Interrupt_enableMaster();
 
-    const char *file = intro;
-
     Gui gui;
     Apu apu;
     initApu(&apu);
@@ -47,46 +35,78 @@ int main(void) {
         updateGuiState(&gui);
         displayGuiState(&gui);
 
-
-        if (cyclesToProcess > 0) {
-            // PLAY FROM KEYBOARD MODE
-            //get from gpio
-            //if different, store to array
-
-
-            // PLAY FROM FILE MODE
-            if (wait == 0) {
-                while (wait == 0) {
-                    Uint16 command = file[index++];
-                    if (command == 0xB4) {
-                        Uint16 address = file[index++];
-                        Uint16 data = file[index++];
-                        writeRegister(&apu, address, data);
-                    }
-                    else if (command & 0xF0 == 0x70) {
-                        wait = (command & 0x0F) + 1;
-                    }
-                    else if (command == 0x61) {
-                        Uint16 waitLo = file[index++];
-                        Uint16 waitHi = file[index++];
-                        wait = waitHi << 8 | waitLo;
-                    }
-                    else if (command == 0x62) {
-                        wait = 735;
-                    }
-                    else if (command == 0x66) {
-                        // END OF FILE;
-                        initApu(&apu);
-                        wait=1;
-                        index--;
-                    }
-                 }
+        if(gui.playFile) {
+            if (cyclesToProcess > 0) {
+                // PLAY FROM FILE MODE
+                if (gui.wait == 0) {
+                    while (gui.wait == 0) {
+                        Uint16 command = gui.file[gui.index++];
+                        if (command == 0xB4) {
+                            Uint16 address = gui.file[gui.index++];
+                            Uint16 data = gui.file[gui.index++];
+                            writeRegister(&apu, address, data);
+                        }
+                        else if (command & 0xF0 == 0x70) {
+                            gui.wait = (command & 0x0F) + 1;
+                        }
+                        else if (command == 0x61) {
+                            Uint16 waitLo = gui.file[gui.index++];
+                            Uint16 waitHi = gui.file[gui.index++];
+                            gui.wait = waitHi << 8 | waitLo;
+                        }
+                        else if (command == 0x62) {
+                            gui.wait = 735;
+                        }
+                        else if (command == 0x66) {
+                            gui.index = gui.fileLoopIndex;
+                        }
+                     }
+                }
+                else {
+                    gui.wait--;
+                }
+                sample = processCycles(&apu, cyclesToProcess);
+                cyclesToProcess = 0;
             }
-            else {
-                wait--;
+        }
+
+        else if (gui.playLoop) {
+            if (cyclesToProcess > 0) {
+                // PLAY FROM LOOP MODE
+                if (gui.wait == 0) {
+                    while (gui.wait == 0) {
+                        Uint16 command = gui.file[gui.index++];
+                        if (command == 0xB4) {
+                            Uint16 address = gui.file[gui.index++];
+                            Uint16 data = gui.file[gui.index++];
+                            writeRegister(&apu, address, data);
+                        }
+                        else if (command & 0xF0 == 0x70) {
+                            gui.wait = (command & 0x0F) + 1;
+                        }
+                        else if (command == 0x61) {
+                            Uint16 waitLo = gui.file[gui.index++];
+                            Uint16 waitHi = gui.file[gui.index++];
+                            gui.wait = waitHi << 8 | waitLo;
+                        }
+                        else if (command == 0x62) {
+                            gui.wait = 735;
+                        }
+                        else if (command == 0x66) {
+                            // END OF FILE;
+                            initApu(&apu);
+                            gui.wait=1;
+                            gui.index--;
+                        }
+                     }
+                }
+                else {
+                    gui.wait--;
+                }
+                sample = processCycles(&apu, cyclesToProcess);
+                cyclesToProcess = 0;
             }
-            sample = processCycles(&apu, cyclesToProcess);
-            cyclesToProcess = 0;
+
         }
 
     }

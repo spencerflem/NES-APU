@@ -289,9 +289,41 @@ void setPulse1EnvelopeParameters(Apu *apu, bool loop, bool useConstantVolume, in
     pickEnvelopeOutput(&apu->pulse1.envelope);
 }
 
+void setPulse1EnvelopeLoop(Apu *apu, bool loop) {
+    apu->pulse1.envelope.loop = loop;
+    pickEnvelopeOutput(&apu->pulse1.envelope);
+}
+
+void setPulse1EnvelopeUseConstantVolume(Apu *apu, bool useConstantVolume) {
+    apu->pulse1.envelope.constantVolume = useConstantVolume;
+    pickEnvelopeOutput(&apu->pulse1.envelope);
+}
+
+void setPulse1EnvelopePeriodAndVolume(Apu *apu, int16 periodAndVolume) {
+    apu->pulse1.envelope.dividerPeriod = (periodAndVolume & 0xF) + 1;
+    apu->pulse1.envelope.volume = (periodAndVolume & 0xF);
+    pickEnvelopeOutput(&apu->pulse1.envelope);
+}
+
 void setPulse2EnvelopeParameters(Apu *apu, bool loop, bool useConstantVolume, int16 periodAndVolume) {
     apu->pulse2.envelope.loop = loop;
     apu->pulse2.envelope.constantVolume = useConstantVolume;
+    apu->pulse2.envelope.dividerPeriod = (periodAndVolume & 0xF) + 1;
+    apu->pulse2.envelope.volume = (periodAndVolume & 0xF);
+    pickEnvelopeOutput(&apu->pulse2.envelope);
+}
+
+void setPulse2EnvelopeLoop(Apu *apu, bool loop) {
+    apu->pulse2.envelope.loop = loop;
+    pickEnvelopeOutput(&apu->pulse2.envelope);
+}
+
+void setPulse2EnvelopeUseConstantVolume(Apu *apu, bool useConstantVolume) {
+    apu->pulse2.envelope.constantVolume = useConstantVolume;
+    pickEnvelopeOutput(&apu->pulse2.envelope);
+}
+
+void setPulse2EnvelopePeriodAndVolume(Apu *apu, int16 periodAndVolume) {
     apu->pulse2.envelope.dividerPeriod = (periodAndVolume & 0xF) + 1;
     apu->pulse2.envelope.volume = (periodAndVolume & 0xF);
     pickEnvelopeOutput(&apu->pulse2.envelope);
@@ -305,6 +337,22 @@ void setNoiseEnvelopeParameters(Apu *apu, bool loop, bool useConstantVolume, int
     pickEnvelopeOutput(&apu->noise.envelope);
 }
 
+void setNoiseEnvelopeLoop(Apu *apu, bool loop) {
+    apu->noise.envelope.loop = loop;
+    pickEnvelopeOutput(&apu->noise.envelope);
+}
+
+void setNoiseEnvelopeUseConstantVolume(Apu *apu, bool useConstantVolume) {
+    apu->noise.envelope.constantVolume = useConstantVolume;
+    pickEnvelopeOutput(&apu->noise.envelope);
+}
+
+void setNoiseEnvelopePeriodAndVolume(Apu *apu, int16 periodAndVolume) {
+    apu->noise.envelope.dividerPeriod = (periodAndVolume & 0xF) + 1;
+    apu->noise.envelope.volume = (periodAndVolume & 0xF);
+    pickEnvelopeOutput(&apu->noise.envelope);
+}
+
 void setPulse1SweepParameters(Apu *apu, bool enabled, int16 period, bool negate, int16 shift) {
     apu->pulse1.sweepReload = true;
     apu->pulse1.sweepEnabled = enabled;
@@ -313,11 +361,51 @@ void setPulse1SweepParameters(Apu *apu, bool enabled, int16 period, bool negate,
     apu->pulse1.sweepShift = (shift & 0x7);
 }
 
+void setPulse1SweepEnabled(Apu *apu, bool enabled) {
+    apu->pulse1.sweepReload = true;
+    apu->pulse1.sweepEnabled = enabled;
+}
+
+void setPulse1SweepPeriod(Apu *apu, int16 period) {
+    apu->pulse1.sweepReload = true;
+    apu->pulse1.sweepPeriod = (period & 0x7) + 1;
+}
+
+void setPulse1SweepNegate(Apu *apu, bool negate) {
+    apu->pulse1.sweepReload = true;
+    apu->pulse1.sweepNegate = negate;
+}
+
+void setPulse1SweepShift(Apu *apu, int16 shift) {
+    apu->pulse1.sweepReload = true;
+    apu->pulse1.sweepShift = (shift & 0x7);
+}
+
 void setPulse2SweepParameters(Apu *apu, bool enabled, int16 period, bool negate, int16 shift) {
     apu->pulse2.sweepReload = true;
     apu->pulse2.sweepEnabled = enabled;
     apu->pulse2.sweepPeriod = (period & 0x7) + 1;
     apu->pulse2.sweepNegate = negate;
+    apu->pulse2.sweepShift = (shift & 0x7);
+}
+
+void setPulse2SweepEnabled(Apu *apu, bool enabled) {
+    apu->pulse2.sweepReload = true;
+    apu->pulse2.sweepEnabled = enabled;
+}
+
+void setPulse2SweepPeriod(Apu *apu, int16 period) {
+    apu->pulse2.sweepReload = true;
+    apu->pulse2.sweepPeriod = (period & 0x7) + 1;
+}
+
+void setPulse2SweepNegate(Apu *apu, bool negate) {
+    apu->pulse2.sweepReload = true;
+    apu->pulse2.sweepNegate = negate;
+}
+
+void setPulse2SweepShift(Apu *apu, int16 shift) {
+    apu->pulse2.sweepReload = true;
     apu->pulse2.sweepShift = (shift & 0x7);
 }
 
