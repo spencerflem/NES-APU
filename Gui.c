@@ -228,13 +228,6 @@ void resetLoop(Gui *gui) {
     gui->newBuff = pongBuff;
 }
 
-void initGui(Gui *gui, Apu *apu) {
-    gui->state = guiMain;
-    gui->apu = apu;
-    gui->octave = 3;
-    resetLoop(gui);
-}
-
 void gotoState(Gui *gui, GuiState state) {
     gui->state = state;
     gui->bottomCursor = false;
@@ -249,6 +242,27 @@ void saveRegs(Gui *gui) {
     gui->noi = getNoiseRegisters(gui->apu);
     gui->sta = getStatusRegisters(gui->apu);
 }
+
+void initGui(Gui *gui, Apu *apu) {
+    gui->state = guiMain;
+    gui->apu = apu;
+    gui->octave = 3;
+    resetLoop(gui);
+    //default APU values:
+    setPulse1LengthCounterHalt(apu, true);
+    setPulse1EnvelopeParameters(apu, true, true, 0);
+    setPulse1SweepParameters(apu, false, 0, true, 0);
+    setPulse2LengthCounterHalt(apu, true);
+    setPulse2EnvelopeParameters(apu, true, true, 0);
+    setPulse2SweepParameters(apu, false, 0, true, 0);
+    setTriangleLengthCounterHaltAndLinearCounterReloadHold(apu, true);
+    setNoiseLengthCounterHalt(apu, true);
+    setNoiseEnvelopeParameters(apu, true, true, 0);
+    setEnableChannels(apu, true, true, true, true);
+    setFrameCounterMode(apu, false);
+    saveRegs(gui);
+}
+
 
 void restoreRegs(Gui *gui) {
     writeRegister(gui->apu, 0x00, gui->pu1.reg0);
@@ -286,11 +300,12 @@ void guiSelect(Gui *gui, int16 selected) {
 }
 
 void actRecording(Gui *gui) {/*Do Nothing*/;}
-const GuiState guiMain = { { {"Recording", &actRecording} } };
+const GuiState guiRecording = { { {"Recording", &actRecording} } };
 
 void actFile(Gui *gui) {
     gotoState(gui, guiFile);
     saveRegs(gui);
+    initApu(gui->apu);
     gui->wait = 0;
     gui->index = 0;
     gui->file = intro;
@@ -298,7 +313,7 @@ void actFile(Gui *gui) {
     gui->fileLoopIndex = introLoopIndex;
 }
 void actLoop(Gui *gui) { gotoState(gui, guiLoop); }
-const GuiState guiRecording = { { {"File", &actFile},
+const GuiState guiMain = { { {"File", &actFile},
                        {"Loop", &actLoop} } };
 
 
@@ -313,6 +328,7 @@ void actLoopBack(Gui *gui) { gotoState(gui, guiMain); }
 void actLoopPlay(Gui *gui) {
     gotoState(gui, guiLoopPlay);
     saveRegs(gui);
+    initApu(gui->apu);
     gui->wait = 0;
     gui->index = 0;
     gui->playLoop = true;
