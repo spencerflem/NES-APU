@@ -269,6 +269,71 @@ void clockApu(Apu *apu, int16 clocks) {
     clockNoise(&apu->noise, clocks);
 }
 
+int16 inverseLength(int16 length) {
+    for (int16 i = 0; i < 32; i++) {
+        if (lengthTable[i] == length) {
+            return i;
+        }
+    }
+    return 0;
+}
+
+int16 inverseNoise(int16 noise) {
+    for (int16 i = 0; i < 16; i++) {
+        if (noisePeriodTableNtsc[i] == noise) {
+            return i;
+        }
+    }
+    return 0;
+}
+
+regs getApuPulseRegisters(Pulse *pulse) {
+    regs preg = { 0 };
+    preg.reg0 |= pulse->duty << 6;
+    preg.reg0 |= pulse->envelope.loop << 5;
+    preg.reg0 |= pulse->envelope.constantVolume << 4;
+    preg.reg0 |= pulse->envelope.volume;
+    preg.reg1 |= pulse->sweepEnabled << 7;
+    preg.reg1 |= (pulse->sweepPeriod-1) << 4;
+    preg.reg1 |= pulse->sweepNegate << 3;
+    preg.reg1 |= pulse->sweepShift;
+    preg.reg2 |= (pulse->timerPeriod>>1) & 0x0FF;
+    preg.reg3 |= inverseLength(pulse->lengthCounter.counter) << 3;
+    preg.reg3 |= (pulse->timerPeriod>>1) & 0x700;
+    return preg;
+}
+
+regs getApuTriangleRegisters(Triangle *triangle) {
+    regs treg = { 0 };
+    treg.reg0 |= triangle->lengthCounter.halt << 7;
+    treg.reg0 |= triangle->linearCounter.counterReloadVal & 0x7F;
+    treg.reg2 |= triangle->timerPeriod & 0x0FF;
+    treg.reg3 |= inverseLength(triangle->lengthCounter.counter) << 3;
+    treg.reg3 |= triangle->timerPeriod & 0x700;
+    return treg;
+}
+
+regs getApuNoiseRegisters(Noise *noise) {
+    regs nreg = { 0 };
+    nreg.reg0 |= noise->envelope.loop << 5;
+    nreg.reg0 |= noise->envelope.constantVolume << 4;
+    nreg.reg0 |= noise->envelope.volume;
+    nreg.reg2 |= noise->mode << 7;
+    nreg.reg2 |= inverseNoise(noise->timerPeriod);
+    nreg.reg3 |= inverseLength(noise->lengthCounter.counter) << 3;
+    return nreg;
+}
+
+regs getApuStatusRegisters(Apu *apu) {
+    regs sreg = { 0 };
+    sreg.reg1 |= apu->noise.enabled << 3;
+    sreg.reg1 |= apu->triangle.enabled << 2;
+    sreg.reg1 |= apu->pulse2.enabled << 1;
+    sreg.reg1 |= apu->pulse1.enabled;
+    sreg.reg3 |= apu->frameMode << 7;
+    return sreg;
+}
+
 // THE PUBLIC API:
 int32 processCycles(Apu *apu, float cycles) {
     apu->remainingCycles += cycles;
@@ -279,6 +344,26 @@ int32 processCycles(Apu *apu, float cycles) {
         apu->output = mixSample(apu);
     }
     return apu->output;
+}
+
+regs getPulse1Registers(Apu *apu) {
+    return getApuPulseRegisters(&apu->pulse1);
+}
+
+regs getPulse2Registers(Apu *apu) {
+    return getApuPulseRegisters(&apu->pulse2);
+}
+
+regs getTriangleRegisters(Apu *apu) {
+    return getApuTriangleRegisters(&apu->triangle);
+}
+
+regs getNoiseRegisters(Apu *apu) {
+    return getApuNoiseRegisters(&apu->noise);
+}
+
+regs getStatusRegisters(Apu *apu) {
+    return getApuStatusRegisters(apu);
 }
 
 void setPulse1EnvelopeParameters(Apu *apu, bool loop, bool useConstantVolume, int16 periodAndVolume) {
@@ -558,7 +643,12 @@ void setEnableChannels(Apu *apu, bool pulse1, bool pulse2, bool triangle, bool n
 }
 
 void setFrameCounterMode(Apu *apu, bool mode) {
+    if (apu->frameMode) {
+        quarterClock(apu);
+        halfClock(apu);
+    }
     apu->frameMode = mode;
+    apu->frameCounter = 0;
 }
 
 void writeRegister(Apu *apu, int16 reg, int16 data) {
@@ -622,6 +712,8 @@ void writeRegister(Apu *apu, int16 reg, int16 data) {
 
 void initApu(Apu *apu) {
     *apu = EmptyApu;
+    apu->pulse1.sweepPeriod = 1;
+    apu->pulse2.sweepPeriod = 1;
     apu->pulse2.sweepNegateMode = true;
     apu->noise.reg = 1;
 }

@@ -79,9 +79,21 @@ typedef struct {
     int32 output;
 } Apu;
 
+typedef struct {
+    char reg0;
+    char reg1;
+    char reg2;
+    char reg3;
+} regs;
+
 static const Apu EmptyApu;
 
 int32 processCycles(Apu *apu, float cycles);
+regs getPulse1Registers(Apu *apu);
+regs getPulse2Registers(Apu *apu);
+regs getTriangleRegisters(Apu *apu);
+regs getNoiseRegisters(Apu *apu);
+regs getStatusRegisters(Apu *apu);
 void setPulse1EnvelopeParameters(Apu *apu, bool loop, bool useConstantVolume, int16 periodAndVolume);
 void setPulse1EnvelopeLoop(Apu *apu, bool loop);
 void setPulse1EnvelopeUseConstantVolume(Apu *apu, bool useConstantVolume);
