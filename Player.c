@@ -248,16 +248,16 @@ int main(void) {
                             gui.recPlaying = false;
                             switch(gui.recordLoop) {
                             case 1:
-                                writeRegAndBuff(&gui, 0x00, gui.pu1.reg0 & 0xF0);
+                                writeRegAndBuff(&gui, 0x00, 0xF0);
                                 break;
                             case 2:
-                                writeRegAndBuff(&gui, 0x04, gui.pu2.reg0 & 0xF0);
+                                writeRegAndBuff(&gui, 0x04, 0xF0);
                                 break;
                             case 3:
                                 writeRegAndBuff(&gui, 0x08, 0x80);
                                 break;
                             case 4:
-                                writeRegAndBuff(&gui, 0x0C, gui.noi.reg0 & 0xF0);
+                                writeRegAndBuff(&gui, 0x0C, 0xF0);
                                 break;
                             }
                         }
@@ -298,7 +298,7 @@ int main(void) {
                                     break;
                                 case 4:
                                     writeRegAndBuff(&gui, 0x0C, gui.noi.reg0 | 0x0F);
-                                    writeRegAndBuff(&gui, 0x0E, gui.noi.reg2 & 0xF0 | newKey);
+                                    writeRegAndBuff(&gui, 0x0E, gui.noi.reg2 & 0xF0 | (14-newKey));
                                     writeRegAndBuff(&gui, 0x0F, 0xF1);
                                     break;
                                 }
