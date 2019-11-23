@@ -18,3 +18,6 @@ Player.c contains the input loop and manages calling gui functions and output so
 APU.c contains the APU functions for setting registers and clocking
 
 Gui.c has the GUI functions for the keyboard and the NSF player
+
+# Player
+![NES Player](https://raw.githubusercontent.com/spencerflem/NES-APU/master/keyboard.jpg)
